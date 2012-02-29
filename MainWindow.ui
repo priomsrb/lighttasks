@@ -6,12 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>242</width>
-    <height>338</height>
+    <width>240</width>
+    <height>336</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Light Tasks</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="icons/icons.qrc">
+    <normaloff>:/icons/lighttasks.png</normaloff>:/icons/lighttasks.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -28,8 +32,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>224</width>
-         <height>264</height>
+         <width>222</width>
+         <height>262</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="taskListLayout">
@@ -70,6 +74,8 @@
   <tabstop>mainOperationButton</tabstop>
   <tabstop>taskListScrollArea</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="icons/icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

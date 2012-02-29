@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Light Tasks
+Exec=lighttasks
+Terminal=false
+Type=Application
+Icon=lighttasks
+Categories=Application;Qt;Utility;Clock;

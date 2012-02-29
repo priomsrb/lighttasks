@@ -11,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
     , state(NORMAL)
 {
     ui->setupUi(this);
-    setWindowIcon(QIcon("icons/lighttasks.png"));
     setupTrayIcon();
     loadSettings();
 
@@ -36,7 +35,7 @@ void MainWindow::setupTrayIcon() {
     systemTrayMenu->addSeparator();
     systemTrayMenu->addAction(quitAction);
 
-    systemTrayIcon = new QSystemTrayIcon(QIcon("icons/lighttasks_small.png"), this);
+    systemTrayIcon = new QSystemTrayIcon(QIcon(":icons/lighttasks.png"), this);
     systemTrayIcon->setContextMenu(systemTrayMenu);
     updateSystemTrayToolTip();
     systemTrayIcon->show();
@@ -45,7 +44,7 @@ void MainWindow::setupTrayIcon() {
 
 void MainWindow::systemTrayActivated(QSystemTrayIcon::ActivationReason activationReason) {
     if(activationReason == QSystemTrayIcon::Trigger) {
-        if(this->isActiveWindow()) {
+        if(this->isVisible()) {
             this->hide();
         } else {
             this->show();

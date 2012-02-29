@@ -1,0 +1,11 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/icons">
+    <file>lighttasks.png</file>
+    <file>up.png</file>
+    <file>down.png</file>
+    <file>rename.png</file>
+    <file>set_time.png</file>
+    <file>reset.png</file>
+    <file>delete.png</file>
+</qresource>
+</RCC>
