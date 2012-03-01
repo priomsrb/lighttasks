@@ -5,17 +5,16 @@ Lighttasks is a simple and lightweight task timer. It lets you keep track of how
 
 Requirements
 ============
-Qt 4.7
+Qt >= 4.6
 
 
 Compiling
 =========
-Simply run ./build.sh in the terminal.
+Run the following commands in the terminal:
 
-
-Running
-=======
-Run ./run.sh in the terminal.
+  qmake
+  make
+  sudo make install
 
 
 
