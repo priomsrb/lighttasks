@@ -1,6 +1,7 @@
 #include <QDebug>
 #include <QMenu>
 #include <QSettings>
+#include <QWindowStateChangeEvent>
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "TaskButton.h"
@@ -268,14 +269,15 @@ void MainWindow::updateSystemTrayToolTip() {
     systemTrayIcon->setToolTip(tooltip);
 }
 
-void MainWindow::moveEvent(QMoveEvent *event) {
-    Q_UNUSED(event);
-    // We need to remember the old geometry when restoring the window from the system tray
-    oldGeometry = this->geometry();
+bool MainWindow::event(QEvent *event) {
+    if(event->type() == QEvent::Resize || event->type() == QEvent::Move) {
+        oldGeometry = this->geometry();
+    } else if(event->type() == QEvent::WindowStateChange) {
+        if(this->isMinimized()) {
+            this->hide();
+        }
+    }
+
+    return QWidget::event(event);
 }
 
-void MainWindow::resizeEvent(QResizeEvent *event) {
-    Q_UNUSED(event);
-    // We need to remember the old geometry when restoring the window from the system tray
-    oldGeometry = this->geometry();
-}

@@ -62,8 +62,7 @@ private:
     void removeTaskItem(TaskItem* taskItem);
     TaskItem* getTaskItemFromButton(TaskButton* taskButton);
     void moveTaskItem(int fromIndex, int toIndex);
-    void moveEvent(QMoveEvent *event);
-    void resizeEvent(QResizeEvent *event);
+    bool event(QEvent *event);
 
 };
 
