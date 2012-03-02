@@ -194,7 +194,6 @@ void TaskButton::cancelEditing() {
     button->show();
 
     emit cancelledEditing();
-    //    disconnect(lineEdit, SIGNAL(returnPressed()), this, SIGNAL(finishedEditing()));
 }
 
 void TaskButton::tick() {
@@ -268,7 +267,7 @@ void TaskButton::updateButton() {
                     "border-radius: 5px;"
                     "}"
                     "QPushButton:hover {"
-                    "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FFEEFF, stop: 1 #FFAAAA);"
+                    "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FFEEEE, stop: 1 #FFAAAA);"
                     "}"
                     "QPushButton:pressed {"
                     "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FF9999, stop: 1 #FFAAAA);"
