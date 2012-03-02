@@ -85,7 +85,6 @@ private:
     void changeState(State newState);
     void createWidgets();
     void createActions();
-    QString getButtonText();
     void updateButton();
     void updateLineEdit();
     void updateTimeEdit();

@@ -19,7 +19,7 @@ void Task::setTime(const int time) {
     this->time = time;
 }
 
-void Task::setName(const std::string name) {
+void Task::setName(const QString name) {
     this->name = name;
 }
 
@@ -33,8 +33,23 @@ int Task::getTime() const {
     return time;
 }
 
-std::string Task::getName() const {
+QString Task::getName() const {
     return name;
+}
+
+QString Task::toText() const {
+    int time = getTime();
+    int seconds = time % 60;
+    int minutes = (time / 60) % 60;
+    int hours = time / 3600;
+    QString timeString = QString("%1:%2:%3")
+            .arg(QString::number(hours), 2, '0')
+            .arg(QString::number(minutes), 2, '0')
+            .arg(QString::number(seconds), 2, '0');
+
+    return QString("%1 (%2)")
+            .arg(getName())
+            .arg(timeString);
 }
 
 bool Task::isActive() const {

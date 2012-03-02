@@ -115,7 +115,7 @@ void TaskButton::startSettingTime() {
 
 void TaskButton::finishRenaming() {
     changeState(NORMAL);
-    task.setName(lineEdit->text().toStdString());
+    task.setName(lineEdit->text());
     lineEdit->hide();
     updateButton();
     button->show();
@@ -205,21 +205,6 @@ const Task TaskButton::getTask() {
     return task;
 }
 
-QString TaskButton::getButtonText() {
-    int time = task.getTime();
-    int seconds = time % 60;
-    int minutes = (time / 60) % 60;
-    int hours = time / 3600;
-    QString timeString = QString("%1:%2:%3")
-            .arg(QString::number(hours), 2, '0')
-            .arg(QString::number(minutes), 2, '0')
-            .arg(QString::number(seconds), 2, '0');
-
-    return QString("%1 (%2)")
-            .arg(task.getName().c_str())
-            .arg(timeString);
-}
-
 void TaskButton::onButtonClick() {
     if(task.isActive()) {
         setActive(false);
@@ -241,7 +226,7 @@ void TaskButton::setActive(bool active) {
 }
 
 void TaskButton::updateButton() {
-    button->setText(getButtonText());
+    button->setText(task.toText());
 
     if(task.isActive()) {
         button->setStyleSheet(
@@ -277,7 +262,7 @@ void TaskButton::updateButton() {
 }
 
 void TaskButton::updateLineEdit() {
-    lineEdit->setText(task.getName().c_str());
+    lineEdit->setText(task.getName());
     lineEdit->selectAll();
 }
 

@@ -1,7 +1,7 @@
 #ifndef TASK_H
 #define TASK_H
 
-#include <string>
+#include <QString>
 
 class Task
 {
@@ -11,18 +11,20 @@ public:
     void start();
     void stop();
 
-    void setName(const std::string name);
+    void setName(const QString name);
     void setTime(int time);
 
     void tick();
 
-    std::string getName() const;
+    QString getName() const;
     int getTime() const;
+
+    QString toText() const;
 
     bool isActive() const;
 
 private:
-    std::string name;
+    QString name;
     int time;
     bool active;
 };
