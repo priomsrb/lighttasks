@@ -7,12 +7,8 @@ Task::Task()
 {
 }
 
-void Task::start() {
-    active = true;
-}
-
-void Task::stop() {
-    active = false;
+void Task::setActive(bool active) {
+    this->active = active;
 }
 
 void Task::setTime(const int time) {

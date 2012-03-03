@@ -8,20 +8,17 @@ class Task
 public:
     Task();
 
-    void start();
-    void stop();
-
+    void setActive(bool active);
     void setName(const QString name);
     void setTime(int time);
 
-    void tick();
-
-    QString getName() const;
-    int getTime() const;
-
-    QString toText() const;
 
     bool isActive() const;
+    QString getName() const;
+    int getTime() const;
+    QString toText() const;
+
+    void tick();
 
 private:
     QString name;

@@ -40,8 +40,10 @@ private:
     };
 
     struct TaskItem {
+        Task *task;
         TaskButton *taskButton;
         QAction *trayAction;
+        bool valid;
     };
 
 
@@ -55,7 +57,7 @@ private:
     QAction *quitAction;
     QRect oldGeometry;
 
-    TaskItem *addTaskItem(Task task);
+    TaskItem *addTaskItem(Task *task);
     void changeState(State newState);
     void loadSettings();
     void setupTrayIcon();

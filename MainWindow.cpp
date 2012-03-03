@@ -59,9 +59,10 @@ void MainWindow::systemTrayActivated(QSystemTrayIcon::ActivationReason activatio
 void MainWindow::operationButtonClicked() {
 
     if(state == NORMAL) {
-        Task task;
-        task.setName("New Task");
+        Task* task = new Task();
+        task->setName("New Task");
         TaskItem *taskItem = addTaskItem(task);
+        taskItem->valid = false;
         taskItem->taskButton->startRenaming();
 
 
@@ -75,8 +76,9 @@ void MainWindow::operationButtonClicked() {
 
 }
 
-MainWindow::TaskItem* MainWindow::addTaskItem(Task task) {
+MainWindow::TaskItem* MainWindow::addTaskItem(Task *task) {
     TaskButton *taskButton = new TaskButton(this);
+    taskButton->setTask(task);
 
     connect(&tickTimer, SIGNAL(timeout()), taskButton, SLOT(tick()));
     connect(taskButton, SIGNAL(startedEditing()), this, SLOT(taskStartedEditing()));
@@ -86,19 +88,19 @@ MainWindow::TaskItem* MainWindow::addTaskItem(Task task) {
     connect(taskButton, SIGNAL(movedUp()), this, SLOT(taskMovedUp()));
     connect(taskButton, SIGNAL(movedDown()), this, SLOT(taskMovedDown()));
 
-    taskButton->init(task);
 
     ui->taskListLayout->insertWidget(0, taskButton);
     ui->taskListScrollArea->ensureWidgetVisible(taskButton);
     setTabOrder(ui->mainOperationButton, taskButton); // We insert to top rather than bottom, so we need to manually set tab order
 
-    QAction *trayAction = new QAction(task.getName(), this);
+    QAction *trayAction = new QAction(task->getName(), this);
     trayAction->setCheckable(true);
     connect(taskButton, SIGNAL(activated(bool)), trayAction, SLOT(setChecked(bool)));
     connect(trayAction, SIGNAL(toggled(bool)), taskButton, SLOT(setActive(bool)));
     systemTrayMenu->insertAction(systemTrayMenu->actions().first(), trayAction);
 
     TaskItem *taskItem = new TaskItem();
+    taskItem->task = task;
     taskItem->taskButton = taskButton;
     taskItem->trayAction = trayAction;
     taskItems.insert(0, taskItem);
@@ -121,9 +123,9 @@ void MainWindow::taskStartedEditing() {
 void MainWindow::taskCancelledEditing() {
     changeState(NORMAL);
     TaskButton *taskButton = static_cast<TaskButton*>(sender());
+    TaskItem *taskItem = getTaskItemFromButton(taskButton);
 
-    if(taskButton->isValid() == false) {
-        TaskItem *taskItem = getTaskItemFromButton(taskButton);
+    if(taskItem->valid == false) {
         removeTaskItem(taskItem);
     }
 }
@@ -150,7 +152,9 @@ void MainWindow::taskFinishedEditing() {
     TaskButton *taskButton = static_cast<TaskButton*>(sender());
     TaskItem *taskItem = getTaskItemFromButton(taskButton);
 
-    QString newTaskName = taskItem->taskButton->getTask().getName();
+    taskItem->valid = true;
+
+    QString newTaskName = taskItem->task->getName();
     taskItem->trayAction->setText(newTaskName);
 
     taskItem->taskButton->setFocus();
@@ -216,11 +220,11 @@ void MainWindow::loadSettings() {
     for(int i=numTasks - 1; i >= 0; i--) {
         settings.setArrayIndex(i);
 
-        Task task;
-        task.setName(settings.value("name").toString());
-        task.setTime(settings.value("time").toInt());
+        Task* task = new Task();
+        task->setName(settings.value("name").toString());
+        task->setTime(settings.value("time").toInt());
         TaskItem *taskItem = addTaskItem(task);
-        taskItem->taskButton->setValid(true);
+        taskItem->valid = true;
     }
     settings.endArray();
 }
@@ -236,9 +240,9 @@ void MainWindow::saveSettings() {
     for(int i=0; i < numTasks; i++) {
         settings.setArrayIndex(i);
 
-        Task task = taskItems[i]->taskButton->getTask();
-        settings.setValue("name", task.getName());
-        settings.setValue("time", (qulonglong)task.getTime());
+        Task* task = taskItems[i]->task;
+        settings.setValue("name", task->getName());
+        settings.setValue("time", (qulonglong)task->getTime());
     }
     settings.endArray();
 
@@ -250,7 +254,7 @@ void MainWindow::updateSystemTrayToolTip() {
     QList<TaskItem*> activeTaskItems;
 
     foreach(TaskItem *taskItem, taskItems) {
-        if(taskItem->taskButton->getTask().isActive()) {
+        if(taskItem->task->isActive()) {
             activeTaskItems.append(taskItem);
         }
     }
@@ -261,7 +265,7 @@ void MainWindow::updateSystemTrayToolTip() {
         tooltip = "No tasks active";
     } else {
         for(int i=0; i < activeTaskItems.size(); i++) {
-            QString taskText = activeTaskItems[i]->taskButton->getTask().toText();
+            QString taskText = activeTaskItems[i]->task->toText();
             tooltip += taskText;
             if(i < activeTaskItems.size() - 1) {
                 tooltip += '\n';

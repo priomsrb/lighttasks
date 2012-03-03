@@ -11,14 +11,16 @@
 TaskButton::TaskButton(QWidget *parent)
     : QWidget(parent)
 {
-}
-
-void TaskButton::init(Task task) {
-    this->task = task;
-    setValid(false);
-
     createWidgets();
     createActions();
+}
+
+void TaskButton::setTask(Task* task) {
+    this->task = task;
+
+    updateButton();
+    updateLineEdit();
+    updateTimeEdit();
 }
 
 void TaskButton::createActions() {
@@ -64,7 +66,6 @@ void TaskButton::createWidgets() {
     button = new QPushButton(this);
     button->setMinimumHeight(50);
     button->installEventFilter(this);
-    updateButton();
     layout->addWidget(button);
 
     lineEdit = new QLineEdit(this);
@@ -72,14 +73,12 @@ void TaskButton::createWidgets() {
     lineEdit->setAlignment(Qt::AlignCenter);
     lineEdit->hide();
     lineEdit->installEventFilter(this);
-    updateLineEdit();
     layout->addWidget(lineEdit);
 
     timeEdit = new TimeEditWidget(this);
     timeEdit->hide();
     timeEdit->setMinimumHeight(50);
     timeEdit->installEventFilter(this);
-    updateTimeEdit();
     layout->addWidget(timeEdit);
 
     connect(lineEdit, SIGNAL(returnPressed()), this, SLOT(finishRenaming()));
@@ -115,19 +114,18 @@ void TaskButton::startSettingTime() {
 
 void TaskButton::finishRenaming() {
     changeState(NORMAL);
-    task.setName(lineEdit->text());
+    task->setName(lineEdit->text());
     lineEdit->hide();
     updateButton();
     button->show();
 
-    setValid(true);
     emit finishedEditing();
 }
 
 
 void TaskButton::finishSettingTime() {
     changeState(NORMAL);
-    task.setTime(timeEdit->getTime());
+    task->setTime(timeEdit->getTime());
     timeEdit->hide();
     updateButton();
     button->show();
@@ -153,7 +151,7 @@ void TaskButton::doSetTimeAction() {
 }
 
 void TaskButton::doResetAction() {
-    task.setTime(0);
+    task->setTime(0);
     updateButton();
 }
 
@@ -168,14 +166,6 @@ void TaskButton::doDeleteAction() {
         emit deleted();
     }
 
-}
-
-void TaskButton::setValid(bool valid) {
-    this->valid = valid;
-}
-
-bool TaskButton::isValid() const {
-    return valid;
 }
 
 bool TaskButton::isEditing() const {
@@ -197,38 +187,25 @@ void TaskButton::cancelEditing() {
 }
 
 void TaskButton::tick() {
-    task.tick();
+    task->tick();
     updateButton();
-}
-
-const Task TaskButton::getTask() {
-    return task;
 }
 
 void TaskButton::onButtonClick() {
-    if(task.isActive()) {
-        setActive(false);
-    } else {
-        setActive(true);
-    }
+    setActive(!task->isActive());
 }
 
 void TaskButton::setActive(bool active) {
-    if(active) {
-        task.start();
-        emit activated(true);
-    } else {
-        task.stop();
-        emit activated(false);
-    }
-
+    task->setActive(active);
     updateButton();
+
+    emit activated(active);
 }
 
 void TaskButton::updateButton() {
-    button->setText(task.toText());
+    button->setText(task->toText());
 
-    if(task.isActive()) {
+    if(task->isActive()) {
         button->setStyleSheet(
                     "QPushButton {"
                     "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #BBFFBB, stop: 1 #77DD77);"
@@ -262,12 +239,12 @@ void TaskButton::updateButton() {
 }
 
 void TaskButton::updateLineEdit() {
-    lineEdit->setText(task.getName());
+    lineEdit->setText(task->getName());
     lineEdit->selectAll();
 }
 
 void TaskButton::updateTimeEdit() {
-    timeEdit->setTime(task.getTime());
+    timeEdit->setTime(task->getTime());
 }
 
 bool TaskButton::eventFilter(QObject *obj, QEvent *event) {

@@ -14,15 +14,11 @@ class TaskButton : public QWidget
     Q_OBJECT
 public:
     TaskButton(QWidget *parent = 0);
-    void init(Task task);
+    void setTask(Task *task);
 
-    void setValid(bool valid);
-    bool isValid() const;
     bool isEditing() const;
     void startRenaming();
     void startSettingTime();
-
-    const Task getTask();
 
 public slots:
     void tick();
@@ -31,12 +27,6 @@ public slots:
 
 
 signals:
-//    void startedRenaming() const;
-//    void startedInitialNaming() const;
-//    void cancelledRenaming() const;
-//    void cancelledInitialNaming() const;
-//    void finishedRenaming() const;
-//    void finishedInitialNaming() const;
     void startedEditing();
     void finishedEditing();
     void cancelledEditing();
@@ -66,9 +56,8 @@ private:
         EDITING
     };
 
-    Task task;
+    Task *task;
     State state;
-    bool valid;
 
     QBoxLayout *layout;
     QPushButton *button;
