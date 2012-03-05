@@ -32,32 +32,32 @@ void TaskButton::setTask(Task* task) {
 
 void TaskButton::createActions() {
     moveUpAction = new QAction("Move up", this);
-    moveUpAction->setIcon(QtIconLoader::icon("go-up", QIcon(":icons/up.png")));
+    moveUpAction->setIcon(QIcon(":icons/up.png"));
     connect(moveUpAction, SIGNAL(triggered()), this, SLOT(doMoveUpAction()));
     addAction(moveUpAction);
 
     moveDownAction = new QAction("Move down", this);
-    moveDownAction->setIcon(QtIconLoader::icon("go-down", QIcon(":icons/down.png")));
+    moveDownAction->setIcon(QIcon(":icons/down.png"));
     connect(moveDownAction, SIGNAL(triggered()), this, SLOT(doMoveDownAction()));
     addAction(moveDownAction);
 
     renameAction = new QAction("Rename", this);
-    renameAction->setIcon(QtIconLoader::icon("edit-rename", QIcon(":icons/rename.png")));
+    renameAction->setIcon(QIcon(":icons/rename.png"));
     connect(renameAction, SIGNAL(triggered()), this, SLOT(doRenameAction()));
     addAction(renameAction);
 
     setTimeAction = new QAction("Set time", this);
-    setTimeAction->setIcon(QtIconLoader::icon("", QIcon(":icons/set_time.png")));
+    setTimeAction->setIcon(QIcon(":icons/set_time.png"));
     connect(setTimeAction, SIGNAL(triggered()), this, SLOT(doSetTimeAction()));
     addAction(setTimeAction);
 
     resetAction = new QAction("Reset", this);
-    resetAction->setIcon(QtIconLoader::icon("edit-undo", QIcon(QIcon(":icons/reset.png"))));
+    resetAction->setIcon(QIcon(":icons/reset.png"));
     connect(resetAction, SIGNAL(triggered()), this, SLOT(doResetAction()));
     addAction(resetAction);
 
     deleteAction = new QAction("Delete", this);
-    deleteAction->setIcon(QtIconLoader::icon("edit-delete", QIcon(QIcon(":icons/delete.png"))));
+    deleteAction->setIcon(QIcon(":icons/delete.png"));
     connect(deleteAction, SIGNAL(triggered()), this, SLOT(doDeleteAction()));
     addAction(deleteAction);
 
