@@ -1,14 +1,26 @@
 #include "Task.h"
 
-Task::Task()
-    : name("")
+Task::Task(QObject *parent)
+    : QObject(parent)
+    , name("")
     , time(0)
     , active(false)
 {
 }
 
+void Task::toggle() {
+    setActive(!isActive());
+    emit toggled();
+}
+
 void Task::setActive(bool active) {
+    bool toggled = (this->active != active);
+
     this->active = active;
+
+    if(toggled) {
+        emit this->toggled();
+    }
 }
 
 void Task::setTime(const int time) {

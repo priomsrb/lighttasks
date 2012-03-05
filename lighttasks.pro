@@ -14,13 +14,15 @@ SOURCES += main.cpp \
     MainWindow.cpp \
     Task.cpp \
     TaskButton.cpp \
-    TimeEditWidget.cpp
+    TimeEditWidget.cpp \
+    qticonloader.cc
 
 HEADERS  += \
     MainWindow.h \
     Task.h \
     TaskButton.h \
-    TimeEditWidget.h
+    TimeEditWidget.h \
+    qticonloader.h
 
 FORMS    += \
     MainWindow.ui \

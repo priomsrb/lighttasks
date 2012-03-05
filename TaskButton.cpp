@@ -6,17 +6,24 @@
 #include <QMetaMethod>
 #include <QMessageBox>
 #include <QStyle>
+#include "qticonloader.h"
 #include "TaskButton.h"
 
 TaskButton::TaskButton(QWidget *parent)
     : QWidget(parent)
+    , task(NULL)
 {
     createWidgets();
     createActions();
 }
 
 void TaskButton::setTask(Task* task) {
+    if(this->task != NULL) {
+        disconnect(this->task, SIGNAL(toggled()), this, SLOT(updateButton()));
+    }
+
     this->task = task;
+    connect(this->task, SIGNAL(toggled()), this, SLOT(updateButton()));
 
     updateButton();
     updateLineEdit();
@@ -25,32 +32,32 @@ void TaskButton::setTask(Task* task) {
 
 void TaskButton::createActions() {
     moveUpAction = new QAction("Move up", this);
-    moveUpAction->setIcon(QIcon(":icons/up.png"));
+    moveUpAction->setIcon(QtIconLoader::icon("go-up", QIcon(":icons/up.png")));
     connect(moveUpAction, SIGNAL(triggered()), this, SLOT(doMoveUpAction()));
     addAction(moveUpAction);
 
     moveDownAction = new QAction("Move down", this);
-    moveDownAction->setIcon(QIcon(":icons/down.png"));
+    moveDownAction->setIcon(QtIconLoader::icon("go-down", QIcon(":icons/down.png")));
     connect(moveDownAction, SIGNAL(triggered()), this, SLOT(doMoveDownAction()));
     addAction(moveDownAction);
 
     renameAction = new QAction("Rename", this);
-    renameAction->setIcon(QIcon(":icons/rename.png"));
+    renameAction->setIcon(QtIconLoader::icon("edit-rename", QIcon(":icons/rename.png")));
     connect(renameAction, SIGNAL(triggered()), this, SLOT(doRenameAction()));
     addAction(renameAction);
 
     setTimeAction = new QAction("Set time", this);
-    setTimeAction->setIcon(QIcon(":icons/set_time.png"));
+    setTimeAction->setIcon(QtIconLoader::icon("", QIcon(":icons/set_time.png")));
     connect(setTimeAction, SIGNAL(triggered()), this, SLOT(doSetTimeAction()));
     addAction(setTimeAction);
 
     resetAction = new QAction("Reset", this);
-    resetAction->setIcon(QIcon(QIcon(":icons/reset.png")));
+    resetAction->setIcon(QtIconLoader::icon("edit-undo", QIcon(QIcon(":icons/reset.png"))));
     connect(resetAction, SIGNAL(triggered()), this, SLOT(doResetAction()));
     addAction(resetAction);
 
     deleteAction = new QAction("Delete", this);
-    deleteAction->setIcon(QIcon(QIcon(":icons/delete.png")));
+    deleteAction->setIcon(QtIconLoader::icon("edit-delete", QIcon(QIcon(":icons/delete.png"))));
     connect(deleteAction, SIGNAL(triggered()), this, SLOT(doDeleteAction()));
     addAction(deleteAction);
 
@@ -197,7 +204,6 @@ void TaskButton::onButtonClick() {
 
 void TaskButton::setActive(bool active) {
     task->setActive(active);
-    updateButton();
 
     emit activated(active);
 }

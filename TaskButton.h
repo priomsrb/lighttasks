@@ -46,6 +46,7 @@ private slots:
     void doSetTimeAction();
     void doResetAction();
     void doDeleteAction();
+    void updateButton();
 
 
 
@@ -74,7 +75,6 @@ private:
     void changeState(State newState);
     void createWidgets();
     void createActions();
-    void updateButton();
     void updateLineEdit();
     void updateTimeEdit();
 

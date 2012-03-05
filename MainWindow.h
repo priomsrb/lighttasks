@@ -21,7 +21,7 @@ public:
     ~MainWindow();
 
 protected slots:
-    void operationButtonClicked();
+    void mainOperationButtonClicked();
     void taskStartedEditing();
     void taskCancelledEditing();
     void taskFinishedEditing();
@@ -31,6 +31,7 @@ protected slots:
     void saveSettings();
     void systemTrayActivated(QSystemTrayIcon::ActivationReason activationReason);
     void updateSystemTrayToolTip();
+    void doHideRestoreAction();
 
 private:
 
@@ -55,6 +56,7 @@ private:
     QSystemTrayIcon *systemTrayIcon;
     QMenu *systemTrayMenu;
     QAction *quitAction;
+    QAction *hideRestoreAction;
     QRect oldGeometry;
 
     TaskItem *addTaskItem(Task *task);
@@ -64,6 +66,7 @@ private:
     void removeTaskItem(TaskItem* taskItem);
     TaskItem* getTaskItemFromButton(TaskButton* taskButton);
     void moveTaskItem(int fromIndex, int toIndex);
+    void restore();
     bool event(QEvent *event);
 
 };

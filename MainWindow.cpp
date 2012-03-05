@@ -2,6 +2,7 @@
 #include <QMenu>
 #include <QSettings>
 #include <QWindowStateChangeEvent>
+#include "qticonloader.h"
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "TaskButton.h"
@@ -15,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupTrayIcon();
     loadSettings();
 
-    connect(ui->mainOperationButton, SIGNAL(clicked()), this, SLOT(operationButtonClicked()));
+    connect(ui->mainOperationButton, SIGNAL(clicked()), this, SLOT(mainOperationButtonClicked()));
     connect(&saveTimer, SIGNAL(timeout()), this, SLOT(saveSettings()));
     connect(&tickTimer, SIGNAL(timeout()), this, SLOT(updateSystemTrayToolTip()));
     saveTimer.start(60000);
@@ -31,10 +32,15 @@ MainWindow::~MainWindow() {
 
 void MainWindow::setupTrayIcon() {
     quitAction = new QAction("Quit", this);
+    quitAction->setIcon(QtIconLoader::icon("application-exit"));
     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
+
+    hideRestoreAction = new QAction("Hide", this);
+    connect(hideRestoreAction, SIGNAL(triggered()), this, SLOT(doHideRestoreAction()));
 
     systemTrayMenu = new QMenu(this);
     systemTrayMenu->addSeparator();
+    systemTrayMenu->addAction(hideRestoreAction);
     systemTrayMenu->addAction(quitAction);
 
     systemTrayIcon = new QSystemTrayIcon(QIcon(":icons/lighttasks.png"), this);
@@ -46,17 +52,11 @@ void MainWindow::setupTrayIcon() {
 
 void MainWindow::systemTrayActivated(QSystemTrayIcon::ActivationReason activationReason) {
     if(activationReason == QSystemTrayIcon::Trigger) {
-        if(this->isVisible()) {
-            this->hide();
-        } else {
-            this->show();
-            this->activateWindow();
-            this->setGeometry(oldGeometry);
-        }
+        doHideRestoreAction();
     }
 }
 
-void MainWindow::operationButtonClicked() {
+void MainWindow::mainOperationButtonClicked() {
 
     if(state == NORMAL) {
         Task* task = new Task();
@@ -276,6 +276,16 @@ void MainWindow::updateSystemTrayToolTip() {
     systemTrayIcon->setToolTip(tooltip);
 }
 
+
+void MainWindow::doHideRestoreAction() {
+    if(this->isVisible()) {
+        this->hide();
+    } else {
+        this->restore();
+    }
+
+}
+
 bool MainWindow::event(QEvent *event) {
     if(event->type() == QEvent::Resize || event->type() == QEvent::Move) {
         oldGeometry = this->geometry();
@@ -283,8 +293,39 @@ bool MainWindow::event(QEvent *event) {
         if(this->isMinimized()) {
             this->hide();
         }
+    } else if(event->type() == QEvent::Hide) {
+        hideRestoreAction->setText("Show");
+    } else if(event->type() == QEvent::Show) {
+        hideRestoreAction->setText("Hide");
+    } else if(event->type() == QEvent::KeyPress) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+        if(keyEvent->modifiers() & Qt::ControlModifier) {
+            int key = keyEvent->key();
+            switch(key) {
+            case Qt::Key_1:
+            case Qt::Key_2:
+            case Qt::Key_3:
+            case Qt::Key_4:
+            case Qt::Key_5:
+            case Qt::Key_6:
+            case Qt::Key_7:
+            case Qt::Key_8:
+            case Qt::Key_9:
+                int num = key - Qt::Key_1;
+                if(taskItems.size() > num) {
+                    taskItems[num]->task->toggle();
+                }
+            }
+        }
     }
 
     return QWidget::event(event);
 }
+
+void MainWindow::restore() {
+    this->show();
+    this->activateWindow();
+    this->setGeometry(oldGeometry);
+}
+
 
