@@ -288,14 +288,15 @@ void MainWindow::doHideRestoreAction() {
 
 bool MainWindow::event(QEvent *event) {
     if(event->type() == QEvent::Resize || event->type() == QEvent::Move) {
-        oldGeometry = this->geometry();
-    } else if(event->type() == QEvent::WindowStateChange) {
-        if(this->isMinimized()) {
-            this->hide();
+        // Windows will sometimes resize a window to 0x0 when it is hidden
+        if(this->geometry().width() > 0 && this->geometry().height() > 0) {
+            oldGeometry = this->geometry();
         }
-    } else if(event->type() == QEvent::Hide) {
+    } else if(event->type() == QEvent::Hide && !event->spontaneous()) {
+        // We need the !event->spontaneous() condition because QEvent::Hide also happens when minimizing
         hideRestoreAction->setText("Show");
-    } else if(event->type() == QEvent::Show) {
+    } else if(event->type() == QEvent::Show && !event->spontaneous()) {
+        // We need the !event->spontaneous() condition because QEvent::Show also happens when restoring
         hideRestoreAction->setText("Hide");
     } else if(event->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
