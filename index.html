@@ -34,7 +34,15 @@
              </tr>
              <tr>
                <td valign="top">
-                 <img src="screenshot-linux.png">
+
+			   <script type="text/javascript">
+			   if((navigator.appVersion.indexOf("X11")!=-1) || (navigator.appVersion.indexOf("Linux")!=-1)) {
+					document.write('<img src="screenshot-linux.png">')
+			   } else {
+					document.write('<img src="screenshot-windows.png">')
+			   }
+			   </script>
+                 
                </td>
                <td valign="top">
                  <br>
