@@ -30,6 +30,10 @@ FORMS    += \
 
 RESOURCES += icons/icons.qrc
 
+windows {
+RC_FILE = lighttasks.rc
+}
+
 unix {
     isEmpty(PREFIX) {
         PREFIX = /usr
