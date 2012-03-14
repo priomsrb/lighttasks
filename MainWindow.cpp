@@ -63,7 +63,7 @@ void MainWindow::mainOperationButtonClicked() {
     if(state == NORMAL) {
         Task* task = new Task();
         task->setName("New Task");
-        TaskItem *taskItem = addTaskItem(task);
+        TaskItem *taskItem = createTaskItem(task);
         taskItem->valid = false;
         taskItem->taskButton->startRenaming();
 
@@ -73,12 +73,11 @@ void MainWindow::mainOperationButtonClicked() {
             taskItems[i]->taskButton->cancelEditing();
         }
 
-        changeState(NORMAL);
     }
 
 }
 
-MainWindow::TaskItem* MainWindow::addTaskItem(Task *task) {
+MainWindow::TaskItem* MainWindow::createTaskItem(Task *task) {
     TaskButton *taskButton = new TaskButton(this);
     taskButton->setTask(task);
 
@@ -123,13 +122,14 @@ void MainWindow::taskStartedEditing() {
 }
 
 void MainWindow::taskCancelledEditing() {
-    changeState(NORMAL);
     TaskButton *taskButton = static_cast<TaskButton*>(sender());
     TaskItem *taskItem = getTaskItemFromButton(taskButton);
 
     if(taskItem->valid == false) {
         removeTaskItem(taskItem);
     }
+
+    changeState(NORMAL);
 }
 
 
@@ -225,7 +225,7 @@ void MainWindow::loadSettings() {
         Task* task = new Task();
         task->setName(settings.value("name").toString());
         task->setTime(settings.value("time").toInt());
-        TaskItem *taskItem = addTaskItem(task);
+        TaskItem *taskItem = createTaskItem(task);
         taskItem->valid = true;
     }
     settings.endArray();

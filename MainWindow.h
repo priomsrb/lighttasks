@@ -61,7 +61,7 @@ private:
     QRect oldGeometry;
     bool reallyQuit;
 
-    TaskItem *addTaskItem(Task *task);
+    TaskItem *createTaskItem(Task *task);
     void changeState(State newState);
     void loadSettings();
     void setupTrayIcon();
