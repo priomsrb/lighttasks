@@ -61,6 +61,7 @@ private:
     QRect oldGeometry;
     bool reallyQuit;
 
+    void addNewTask();
     TaskItem *createTaskItem(Task *task);
     void changeState(State newState);
     void loadSettings();

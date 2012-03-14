@@ -59,22 +59,21 @@ void MainWindow::systemTrayActivated(QSystemTrayIcon::ActivationReason activatio
 }
 
 void MainWindow::mainOperationButtonClicked() {
-
     if(state == NORMAL) {
-        Task* task = new Task();
-        task->setName("New Task");
-        TaskItem *taskItem = createTaskItem(task);
-        taskItem->valid = false;
-        taskItem->taskButton->startRenaming();
-
-
+        addNewTask();
     } else if (state == EDITING) {
         for(int i=0; i < taskItems.size(); i++) {
             taskItems[i]->taskButton->cancelEditing();
         }
-
     }
+}
 
+void MainWindow::addNewTask() {
+    Task* task = new Task();
+    task->setName("New Task");
+    TaskItem *taskItem = createTaskItem(task);
+    taskItem->valid = false;
+    taskItem->taskButton->startRenaming();
 }
 
 MainWindow::TaskItem* MainWindow::createTaskItem(Task *task) {
@@ -323,11 +322,28 @@ bool MainWindow::event(QEvent *event) {
             case Qt::Key_6:
             case Qt::Key_7:
             case Qt::Key_8:
-            case Qt::Key_9:
+            case Qt::Key_9: {
                 int num = key - Qt::Key_1;
                 if(taskItems.size() > num) {
                     taskItems[num]->task->toggle();
                 }
+                return true;
+            }
+
+            case Qt::Key_T:
+            {
+                if(state == NORMAL) {
+                    this->addNewTask();
+                }
+                return true;
+            }
+
+            // FIXME: Making "Ctrl+Q" as the shortcut for quitAction didn't work so it is kludged here
+            case Qt::Key_Q:
+            {
+                quitAction->trigger();
+            }
+
             }
         }
     }

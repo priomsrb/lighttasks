@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>240</width>
-    <height>336</height>
+    <width>236</width>
+    <height>332</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@
     <item>
      <widget class="QScrollArea" name="taskListScrollArea">
       <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
+       <enum>Qt::ClickFocus</enum>
       </property>
       <property name="widgetResizable">
        <bool>true</bool>
@@ -32,8 +32,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>222</width>
-         <height>262</height>
+         <width>218</width>
+         <height>258</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="taskListLayout">
