@@ -1,6 +1,13 @@
 Introduction
 ============
-Lighttasks is a simple and lightweight task timer. It lets you keep track of how long you spend on certain tasks. Once you've added a new task, simply click on it to start and stop timing.
+Lighttasks is a simple and lightweight task timer. It lets you keep track of how long you spend on certain tasks. Once you've added a new task, simply click on it to start and stop timing. You can also toggle tasks using the system tray.
+
+
+Shortcuts
+=========
+CTRL+T = Add new task
+CTRL+1 to CTRL+9 = Toggle task 1 to 9
+CTRL+Q = Quit
 
 
 Requirements
