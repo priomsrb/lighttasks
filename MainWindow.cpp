@@ -52,7 +52,8 @@ void MainWindow::setupTrayIcon() {
 }
 
 void MainWindow::systemTrayActivated(QSystemTrayIcon::ActivationReason activationReason) {
-    if(activationReason == QSystemTrayIcon::Trigger) {
+    if(activationReason == QSystemTrayIcon::Trigger ||
+            activationReason == QSystemTrayIcon::DoubleClick) {
         doHideRestoreAction();
     }
 }
