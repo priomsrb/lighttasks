@@ -32,6 +32,7 @@ protected slots:
     void systemTrayActivated(QSystemTrayIcon::ActivationReason activationReason);
     void updateSystemTrayToolTip();
     void doHideRestoreAction();
+    void quit();
 
 private:
 
@@ -58,6 +59,7 @@ private:
     QAction *quitAction;
     QAction *hideRestoreAction;
     QRect oldGeometry;
+    bool reallyQuit;
 
     TaskItem *addTaskItem(Task *task);
     void changeState(State newState);

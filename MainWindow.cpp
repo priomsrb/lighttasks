@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , state(NORMAL)
+    , reallyQuit(false)
 {
     ui->setupUi(this);
     setupTrayIcon();
@@ -33,7 +34,7 @@ MainWindow::~MainWindow() {
 void MainWindow::setupTrayIcon() {
     quitAction = new QAction("Quit", this);
     quitAction->setIcon(QtIconLoader::icon("application-exit"));
-    connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
+    connect(quitAction, SIGNAL(triggered()), this, SLOT(quit()));
 
     hideRestoreAction = new QAction("Hide", this);
     connect(hideRestoreAction, SIGNAL(triggered()), this, SLOT(doHideRestoreAction()));
@@ -287,17 +288,27 @@ void MainWindow::doHideRestoreAction() {
 }
 
 bool MainWindow::event(QEvent *event) {
-    if(event->type() == QEvent::Resize || event->type() == QEvent::Move) {
+    if(event->type() == QEvent::Close) {
+        if(!reallyQuit) {
+            QCloseEvent *closeEvent = static_cast<QCloseEvent*>(event);
+            this->hide();
+            closeEvent->ignore();
+            return true;
+        }
+    } else if(event->type() == QEvent::Resize || event->type() == QEvent::Move) {
         // Windows will sometimes resize a window to 0x0 when it is hidden
         if(this->geometry().width() > 0 && this->geometry().height() > 0) {
             oldGeometry = this->geometry();
         }
+
     } else if(event->type() == QEvent::Hide && !event->spontaneous()) {
         // We need the !event->spontaneous() condition because QEvent::Hide also happens when minimizing
         hideRestoreAction->setText("Show");
+
     } else if(event->type() == QEvent::Show && !event->spontaneous()) {
         // We need the !event->spontaneous() condition because QEvent::Show also happens when restoring
         hideRestoreAction->setText("Hide");
+
     } else if(event->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
         if(keyEvent->modifiers() & Qt::ControlModifier) {
@@ -320,13 +331,18 @@ bool MainWindow::event(QEvent *event) {
         }
     }
 
-    return QWidget::event(event);
+    return QMainWindow::event(event);
 }
 
 void MainWindow::restore() {
     this->show();
     this->activateWindow();
     this->setGeometry(oldGeometry);
+}
+
+void MainWindow::quit() {
+    reallyQuit = true;
+    this->close();
 }
 
 
