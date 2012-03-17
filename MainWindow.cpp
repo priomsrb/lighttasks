@@ -215,6 +215,9 @@ void MainWindow::moveTaskItem(int fromIndex, int toIndex) {
 void MainWindow::loadSettings() {
     QSettings settings("lighttasks", "lighttasks");
 
+    QSize windowSize = settings.value("windowSize", QSize(234, 330)).toSize();
+    resize(windowSize);
+
     int numTasks = settings.beginReadArray("tasks");
 
     // We load the tasks in reverse order because the tasks are added like a stack
@@ -234,6 +237,8 @@ void MainWindow::loadSettings() {
 void MainWindow::saveSettings() {
     QSettings settings("lighttasks", "lighttasks");
     settings.clear();
+
+    settings.setValue("windowSize", size());
 
     int numTasks = taskItems.size();
     settings.beginWriteArray("tasks", numTasks);
