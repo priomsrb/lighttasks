@@ -50,7 +50,7 @@ bool TimeEditWidget::eventFilter(QObject *obj, QEvent *event) {
     if(obj == ui->secondsSpinBox || obj == ui->minutesSpinBox || obj == ui->hoursSpinBox) {
         if(event->type() == QEvent::KeyPress) {
             QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
-            if(keyEvent->key() == Qt::Key_Return) {
+            if(keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter) {
                 emit returnPressed();
                 return true;
             }
