@@ -32,9 +32,7 @@ MainWindow::~MainWindow() {
 
 
 void MainWindow::setupTrayIcon() {
-    quitAction = new QAction("Quit", this);
-    quitAction->setIcon(QtIconLoader::icon("application-exit"));
-    connect(quitAction, SIGNAL(triggered()), this, SLOT(quit()));
+    connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(quit()));
 
     hideRestoreAction = new QAction("Hide", this);
     connect(hideRestoreAction, SIGNAL(triggered()), this, SLOT(doHideRestoreAction()));
@@ -42,7 +40,7 @@ void MainWindow::setupTrayIcon() {
     systemTrayMenu = new QMenu(this);
     systemTrayMenu->addSeparator();
     systemTrayMenu->addAction(hideRestoreAction);
-    systemTrayMenu->addAction(quitAction);
+    systemTrayMenu->addAction(ui->actionQuit);
 
     systemTrayIcon = new QSystemTrayIcon(QIcon(":icons/lighttasks.png"), this);
     systemTrayIcon->setContextMenu(systemTrayMenu);
@@ -341,12 +339,6 @@ bool MainWindow::event(QEvent *event) {
                     this->addNewTask();
                 }
                 return true;
-            }
-
-            // FIXME: Making "Ctrl+Q" as the shortcut for quitAction didn't work so it is kludged here
-            case Qt::Key_Q:
-            {
-                quitAction->trigger();
             }
 
             }

@@ -56,7 +56,6 @@ private:
     State state;
     QSystemTrayIcon *systemTrayIcon;
     QMenu *systemTrayMenu;
-    QAction *quitAction;
     QAction *hideRestoreAction;
     QRect oldGeometry;
     bool reallyQuit;
