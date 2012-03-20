@@ -10,7 +10,6 @@ Task::Task(QObject *parent)
 
 void Task::toggle() {
     setActive(!isActive());
-    emit toggled();
 }
 
 void Task::setActive(bool active) {
