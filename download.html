@@ -1,99 +1,105 @@
 <html>
 
-  <head>
+    <head>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-29607231-1']);
+            _gaq.push(['_trackPageview']);
 
-    <style type="text/css">
-      p {
-        font-family: "Verdana",Sans;
-      }
+            (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();
+        </script>
 
-      h3 {
-        font-size: 14;
-      }
-    </style>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
 
-    <script type="text/javascript">
+    <body>
+        <div id="mainContainer" class="clearfix">
+            <a href="index.html">
+                <div id="logo">
+                    <img src="lighttasks.png">
+                    <span id="logoText1">Light </span>
+                    <span id="logoText2">Tasks</span>
+                </div>
+            </a>
 
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-29607231-1']);
-      _gaq.push(['_trackPageview']);
+            <div id="navigation">
+                <ul>
+                    <li><a href="index.html">Overview</a></li>
+                    <li><a href="screenshots.html">Screenshots</a></li>
+                    <li><a href="download.html">Download</a></li>
+                    <li><a href="help.html">Help</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
 
-      (function() {
-       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-       })();
+            <div id="content" class="clearfix">
 
-     </script>
 
-  </head>
+                <!-- CONTENT START -->
 
-  <body>
-    <center>
-            <table width="600" cellspacing="5">
-              <tr>
-                <td>
-                  <img src="logo.png">
-                </td>
-              </tr>
-              <tr>
-                <td valign="top">
-                  <p>
-                  <h1>Downloads</h1>
-                  <!--
-                  <ul>
-                    <li><a href="#windows">Windows</a></li>
-                    <li><a href="#linux">Linux</a></li>
-                    <li>Maemo 5 (coming soon)</li>
-                    <li><a href="#source">Source</a></li>
-                  </ul>
-                  -->
-                  </p>
-                  
-                  <hr>
-                  
-                  <p>
-                  <h2><a name="windows">Windows</a></h2>
-                  <ul>
-                  <li>
-                  <a href="https://github.com/downloads/priomsrb/lighttasks/lighttasks-0.2-win.zip">Light Tasks 0.2</a>
-                  </li>
-                  </ul>
-                  </p>
-                  
-                  <hr>
-                  
-                  <p>
-                  <h2><a name="linux">Linux</a></h2>
-                  <h3>Arch Linux</h3>
-                  Download from AUR:
+                <p>
+                <h1>Download</h1>
+                </p>
+
+
+                <p>
+                <div class="osHeading">
+                    <img src="windows-logo.png" />
+                    <span class="osHeadingText">Windows</span>
+                </div>
+                <ul>
+                    <li>
+                    <a href="https://github.com/downloads/priomsrb/lighttasks/lighttasks-0.2-win.zip">Download Light Tasks 0.2</a>
+                    </li>
+                </ul>
+                </p>
+
+
+                <p>
+                <div class="osHeading">
+                    <img src="linux-logo.png" />
+                    <span class="osHeadingText">Linux</span>
+                </div>
+                <h3>Arch Linux</h3>
+                <a href="https://aur.archlinux.org/packages.php?ID=57188">Download from AUR:</a>
                   <pre>yaourt -S lighttasks-git</pre>
-                  <h3>Other</h3>
-                  Install using source.
-                  </p>
+                <h3>Other</h3>
+                Install using source.
+                </p>
 
-                  <hr>
-                  
-                  <p>
-                  <h2>Source</h2>
-                  <h3>Requrirements</h3>
-                  Qt >= 4.6
-                  <h3>Compiling</h3>
-                  <ol>
+
+                <p>
+                <div class="osHeading">
+                    <img src="source-logo.png" />
+                    <span class="osHeadingText">Source</span>
+                </div>
+                <h3>Requrirements</h3>
+                <ul>
+                    <li>g++</li>
+                    <li>Qt development files (May be called libqt4-devel or qt-devel on Linux. For Windows/Mac you can use the Qt SDK)</li>
+                    
+                </ul>
+                <h3>Compiling</h3>
+                <ol>
                     <li><a href="https://github.com/priomsrb/lighttasks/tarball/master">Download</a> the latest source code.</li>
                     <li>Extract and switch to lighttask directory</li>
                     <li>Run "qmake"</li>
                     <li>Run "make"</li>
                     <li>Run "sudo make install"</li>
-                  </ol>
-                  </p>
+                </ol>
+                </p>
 
-                  <p>
-                </td>
-              </tr>
-            </table>
-          </center>
-  </body>
+                <p>
+
+                <!-- CONTENT END -->
+
+
+            </div>
+        </div>
+    </body>
 
 </html>
-
