@@ -12,16 +12,22 @@ CTRL+Q = Quit
 
 Requirements
 ============
-Qt >= 4.6
+- g++
+- Qt development files (May be called libqt4-devel or qt-devel on Linux. For Windows/Mac you can use the Qt SDK)
 
 
 Installing
 =========
-Run the following commands in the terminal:
+To install Light Tasks to the system run the following:
 
   qmake
   make
   sudo make install
+
+Or to only compile and execute within local directory, run the following:
+
+  ./compile.sh
+  ./run.sh
 
 
 

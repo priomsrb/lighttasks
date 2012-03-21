@@ -1,4 +1,4 @@
 #!/bin/sh
-qmake
+qmake &&
 make
  
