@@ -19,11 +19,11 @@ TaskButton::TaskButton(QWidget *parent)
 
 void TaskButton::setTask(Task* task) {
     if(this->task != NULL) {
-        disconnect(this->task, SIGNAL(toggled()), this, SLOT(updateButton()));
+        disconnect(this->task, SIGNAL(toggled(bool)), this, SLOT(updateButton()));
     }
 
     this->task = task;
-    connect(this->task, SIGNAL(toggled()), this, SLOT(updateButton()));
+    connect(this->task, SIGNAL(toggled(bool)), this, SLOT(updateButton()));
 
     updateButton();
     updateLineEdit();

@@ -42,11 +42,15 @@ void MainWindow::setupTrayIcon() {
     systemTrayMenu->addAction(hideRestoreAction);
     systemTrayMenu->addAction(ui->actionQuit);
 
-    systemTrayIcon = new QSystemTrayIcon(QIcon(":icons/lighttasks.png"), this);
+    normalIcon.addFile(":icons/lighttasks.png");
+    taskActiveIcon.addFile(":icons/lighttasks_task_active.png");
+
+    systemTrayIcon = new QSystemTrayIcon(normalIcon, this);
     systemTrayIcon->setContextMenu(systemTrayMenu);
     updateSystemTrayToolTip();
     systemTrayIcon->show();
-    connect(systemTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(systemTrayActivated(QSystemTrayIcon::ActivationReason)));
+    connect(systemTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+            this, SLOT(systemTrayActivated(QSystemTrayIcon::ActivationReason)));
 }
 
 void MainWindow::systemTrayActivated(QSystemTrayIcon::ActivationReason activationReason) {
@@ -89,12 +93,15 @@ MainWindow::TaskItem* MainWindow::createTaskItem(Task *task) {
 
     ui->taskListLayout->insertWidget(0, taskButton);
     ui->taskListScrollArea->ensureWidgetVisible(taskButton);
-    setTabOrder(ui->mainOperationButton, taskButton); // We insert to top rather than bottom, so we need to manually set tab order
+
+    // We insert to top rather than bottom, so we need to manually set tab order
+    setTabOrder(ui->mainOperationButton, taskButton);
 
     QAction *trayAction = new QAction(task->getName(), this);
     trayAction->setCheckable(true);
-    connect(taskButton, SIGNAL(activated(bool)), trayAction, SLOT(setChecked(bool)));
+    connect(task, SIGNAL(toggled(bool)), trayAction, SLOT(setChecked(bool)));
     connect(trayAction, SIGNAL(toggled(bool)), taskButton, SLOT(setActive(bool)));
+    connect(task, SIGNAL(toggled(bool)), this, SLOT(updateIcon()));
     systemTrayMenu->insertAction(systemTrayMenu->actions().first(), trayAction);
 
     TaskItem *taskItem = new TaskItem();
@@ -251,6 +258,32 @@ void MainWindow::saveSettings() {
     settings.endArray();
 
     settings.sync();
+}
+
+
+void MainWindow::updateIcon() {
+    static bool prevTasksActive = false;
+    bool tasksActive = false;
+
+    foreach(TaskItem *taskItem, taskItems) {
+        if(taskItem->task->isActive()) {
+            tasksActive = true;
+            break;
+        }
+    }
+
+    if(tasksActive != prevTasksActive) {
+        if(tasksActive) {
+            setWindowIcon(taskActiveIcon);
+            systemTrayIcon->setIcon(taskActiveIcon);
+        } else {
+            setWindowIcon(normalIcon);
+            systemTrayIcon->setIcon(normalIcon);
+        }
+    }
+
+    prevTasksActive = tasksActive;
+
 }
 
 

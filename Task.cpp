@@ -18,7 +18,7 @@ void Task::setActive(bool active) {
     this->active = active;
 
     if(toggled) {
-        emit this->toggled();
+        emit this->toggled(active);
     }
 }
 

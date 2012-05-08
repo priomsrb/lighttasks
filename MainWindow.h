@@ -31,6 +31,7 @@ protected slots:
     void saveSettings();
     void systemTrayActivated(QSystemTrayIcon::ActivationReason activationReason);
     void updateSystemTrayToolTip();
+    void updateIcon();
     void doHideRestoreAction();
     void quit();
 
@@ -55,6 +56,8 @@ private:
     QTimer saveTimer;
     State state;
     QSystemTrayIcon *systemTrayIcon;
+    QIcon normalIcon;
+    QIcon taskActiveIcon;
     QMenu *systemTrayMenu;
     QAction *hideRestoreAction;
     QRect oldGeometry;

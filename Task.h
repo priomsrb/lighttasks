@@ -23,7 +23,7 @@ public:
     void tick();
 
 signals:
-    void toggled();
+    void toggled(bool newState);
 
 private:
     QString name;

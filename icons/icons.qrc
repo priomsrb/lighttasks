@@ -7,5 +7,6 @@
     <file>set_time.png</file>
     <file>reset.png</file>
     <file>delete.png</file>
+    <file>lighttasks_task_active.png</file>
 </qresource>
 </RCC>
