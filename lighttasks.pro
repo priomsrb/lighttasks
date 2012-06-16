@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 TARGET = lighttasks
 TEMPLATE = app
@@ -15,14 +15,24 @@ SOURCES += main.cpp \
     Task.cpp \
     TaskButton.cpp \
     TimeEditWidget.cpp \
-    qticonloader.cc
+    qticonloader.cc \
+    include/qtsingleapplication/qtsingleapplication.cpp \
+    include/qtsingleapplication/qtlockedfile_win.cpp \
+    include/qtsingleapplication/qtlockedfile_unix.cpp \
+    include/qtsingleapplication/qtlockedfile.cpp \
+    include/qtsingleapplication/qtlocalpeer.cpp
 
 HEADERS  += \
     MainWindow.h \
     Task.h \
     TaskButton.h \
     TimeEditWidget.h \
-    qticonloader.h
+    qticonloader.h \
+    include/qtsingleapplication/qtsingleapplication.h \
+    include/qtsingleapplication/QtSingleApplication \
+    include/qtsingleapplication/qtlockedfile.h \
+    include/qtsingleapplication/QtLockedFile \
+    include/qtsingleapplication/qtlocalpeer.h
 
 FORMS    += \
     MainWindow.ui \

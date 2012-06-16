@@ -33,6 +33,7 @@ protected slots:
     void updateSystemTrayToolTip();
     void updateIcon();
     void doHideRestoreAction();
+    void restore();
     void quit();
 
 private:
@@ -71,7 +72,6 @@ private:
     void removeTaskItem(TaskItem* taskItem);
     TaskItem* getTaskItemFromButton(TaskButton* taskButton);
     void moveTaskItem(int fromIndex, int toIndex);
-    void restore();
     bool event(QEvent *event);
 
 };
