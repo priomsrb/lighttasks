@@ -16,14 +16,14 @@ public:
     TaskButton(QWidget *parent = 0);
     void setTask(Task *task);
 
-    bool isEditing() const;
     void startRenaming();
     void startSettingTime();
+    bool isEditing() const;
 
 public slots:
     void tick();
-    void cancelEditing();
     void setActive(bool active);
+    void cancelEditing();
 
 
 signals:

@@ -10,14 +10,14 @@ class Task : public QObject
 public:
     Task(QObject *parent = 0);
 
-    void toggle();
-    void setActive(bool active);
     void setName(const QString name);
     void setTime(int time);
+    void setActive(bool active);
+    void toggle();
 
-    bool isActive() const;
     QString getName() const;
     int getTime() const;
+    bool isActive() const;
     QString toText() const;
 
     void tick();

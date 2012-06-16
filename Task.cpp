@@ -8,26 +8,26 @@ Task::Task(QObject *parent)
 {
 }
 
-void Task::toggle() {
-    setActive(!isActive());
-}
-
-void Task::setActive(bool active) {
-    bool toggled = (this->active != active);
-
-    this->active = active;
-
-    if(toggled) {
-        emit this->toggled(active);
-    }
+void Task::setName(const QString name) {
+    this->name = name;
 }
 
 void Task::setTime(const int time) {
     this->time = time;
 }
 
-void Task::setName(const QString name) {
-    this->name = name;
+void Task::setActive(bool active) {
+    bool isToggled = (this->active != active);
+
+    this->active = active;
+
+    if(isToggled) {
+        emit toggled(active);
+    }
+}
+
+void Task::toggle() {
+    setActive(!isActive());
 }
 
 void Task::tick() {
@@ -36,12 +36,16 @@ void Task::tick() {
     }
 }
 
+QString Task::getName() const {
+    return name;
+}
+
 int Task::getTime() const {
     return time;
 }
 
-QString Task::getName() const {
-    return name;
+bool Task::isActive() const {
+    return active;
 }
 
 QString Task::toText() const {
@@ -57,8 +61,4 @@ QString Task::toText() const {
     return QString("%1 (%2)")
             .arg(getName())
             .arg(timeString);
-}
-
-bool Task::isActive() const {
-    return active;
 }
