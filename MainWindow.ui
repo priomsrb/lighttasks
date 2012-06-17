@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>228</width>
-    <height>324</height>
+    <width>226</width>
+    <height>322</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,8 +32,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>210</width>
-         <height>229</height>
+         <width>208</width>
+         <height>227</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="taskListLayout">
@@ -74,7 +74,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>228</width>
+     <width>226</width>
      <height>21</height>
     </rect>
    </property>
@@ -82,6 +82,8 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <addaction name="actionExport_History"/>
+    <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuOptions">
@@ -110,6 +112,11 @@
    </property>
    <property name="text">
     <string>Always on top</string>
+   </property>
+  </action>
+  <action name="actionExport_History">
+   <property name="text">
+    <string>Export History</string>
    </property>
   </action>
  </widget>

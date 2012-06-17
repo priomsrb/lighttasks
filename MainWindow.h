@@ -7,6 +7,15 @@
 #include <QSystemTrayIcon>
 #include <QTimer>
 #include "TaskButton.h"
+#include "TaskLogger.h"
+
+struct TaskItem {
+    Task *task;
+    TaskButton *taskButton;
+    QAction *trayAction;
+    bool valid;
+};
+
 
 namespace Ui {
 class MainWindow;
@@ -34,6 +43,7 @@ protected slots:
     void updateSystemTrayToolTip();
     void updateIcon();
     void doHideRestoreAction();
+    void exportHistory();
     void restore();
     void quit();
 
@@ -44,16 +54,10 @@ private:
         EDITING
     };
 
-    struct TaskItem {
-        Task *task;
-        TaskButton *taskButton;
-        QAction *trayAction;
-        bool valid;
-    };
-
 
     Ui::MainWindow *ui;
     QList<TaskItem*> taskItems;
+    TaskLogger taskLogger;
     QTimer tickTimer;
     QTimer saveTimer;
     State state;
@@ -75,6 +79,7 @@ private:
     TaskItem* getTaskItemFromButton(TaskButton* taskButton);
     void moveTaskItem(int fromIndex, int toIndex);
     bool event(QEvent *event);
+    int generateNewTaskId();
 
 };
 

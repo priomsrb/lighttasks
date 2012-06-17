@@ -17,6 +17,10 @@ TaskButton::TaskButton(QWidget *parent)
     createActions();
 }
 
+
+TaskButton::~TaskButton() {
+}
+
 void TaskButton::setTask(Task* task) {
     if(this->task != NULL) {
         disconnect(this->task, SIGNAL(toggled(bool)), this, SLOT(updateButton()));
@@ -250,7 +254,7 @@ void TaskButton::updateLineEdit() {
 }
 
 void TaskButton::updateTimeEdit() {
-    timeEdit->setTime(task->getTime());
+    timeEdit->setTime(task->getTotalTime());
 }
 
 bool TaskButton::eventFilter(QObject *obj, QEvent *event) {

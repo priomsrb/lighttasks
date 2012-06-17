@@ -20,7 +20,9 @@ SOURCES += main.cpp \
     include/qtsingleapplication/qtlockedfile_win.cpp \
     include/qtsingleapplication/qtlockedfile_unix.cpp \
     include/qtsingleapplication/qtlockedfile.cpp \
-    include/qtsingleapplication/qtlocalpeer.cpp
+    include/qtsingleapplication/qtlocalpeer.cpp \
+    TaskLogger.cpp \
+    TaskStatistics.cpp
 
 HEADERS  += \
     MainWindow.h \
@@ -32,7 +34,9 @@ HEADERS  += \
     include/qtsingleapplication/QtSingleApplication \
     include/qtsingleapplication/qtlockedfile.h \
     include/qtsingleapplication/QtLockedFile \
-    include/qtsingleapplication/qtlocalpeer.h
+    include/qtsingleapplication/qtlocalpeer.h \
+    TaskLogger.h \
+    TaskStatistics.h
 
 FORMS    += \
     MainWindow.ui \

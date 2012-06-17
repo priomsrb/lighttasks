@@ -14,6 +14,8 @@ class TaskButton : public QWidget
     Q_OBJECT
 public:
     TaskButton(QWidget *parent = 0);
+    ~TaskButton();
+
     void setTask(Task *task);
 
     void startRenaming();
