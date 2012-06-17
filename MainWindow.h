@@ -22,6 +22,7 @@ public:
 
 protected slots:
     void mainOperationButtonClicked();
+    void alwaysOnTopToggled(bool alwaysOnTop);
     void taskStartedEditing();
     void taskCancelledEditing();
     void taskFinishedEditing();
@@ -63,6 +64,7 @@ private:
     QAction *hideRestoreAction;
     QRect oldGeometry;
     bool reallyQuit;
+    bool alwaysOnTop;
 
     void addNewTask();
     TaskItem *createTaskItem(Task *task);

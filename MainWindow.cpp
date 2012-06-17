@@ -12,14 +12,18 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , state(NORMAL)
     , reallyQuit(false)
+    , alwaysOnTop(false)
 {
     ui->setupUi(this);
+
+    connect(ui->mainOperationButton, SIGNAL(clicked()), this, SLOT(mainOperationButtonClicked()));
+    connect(ui->actionAlways_on_top, SIGNAL(toggled(bool)), this, SLOT(alwaysOnTopToggled(bool)));
+    connect(&saveTimer, SIGNAL(timeout()), this, SLOT(saveSettings()));
+    connect(&tickTimer, SIGNAL(timeout()), this, SLOT(updateSystemTrayToolTip()));
+
     setupTrayIcon();
     loadSettings();
 
-    connect(ui->mainOperationButton, SIGNAL(clicked()), this, SLOT(mainOperationButtonClicked()));
-    connect(&saveTimer, SIGNAL(timeout()), this, SLOT(saveSettings()));
-    connect(&tickTimer, SIGNAL(timeout()), this, SLOT(updateSystemTrayToolTip()));
     saveTimer.start(60000);
     tickTimer.start(1000);
 }
@@ -68,6 +72,20 @@ void MainWindow::mainOperationButtonClicked() {
             taskItems[i]->taskButton->cancelEditing();
         }
     }
+}
+
+void MainWindow::alwaysOnTopToggled(bool alwaysOnTop) {
+    this->alwaysOnTop = alwaysOnTop;
+
+    Qt::WindowFlags flags = this->windowFlags();
+
+    if (alwaysOnTop) {
+        this->setWindowFlags(flags | Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
+    } else {
+        this->setWindowFlags(flags ^ (Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint));
+    }
+
+    this->show();
 }
 
 void MainWindow::addNewTask() {
@@ -223,6 +241,9 @@ void MainWindow::loadSettings() {
     QSize windowSize = settings.value("windowSize", QSize(234, 330)).toSize();
     resize(windowSize);
 
+    alwaysOnTop = settings.value("alwaysOnTop", false).toBool();
+    ui->actionAlways_on_top->setChecked(alwaysOnTop);
+
     int numTasks = settings.beginReadArray("tasks");
 
     // We load the tasks in reverse order because the tasks are added like a stack
@@ -244,6 +265,7 @@ void MainWindow::saveSettings() {
     settings.clear();
 
     settings.setValue("windowSize", size());
+    settings.setValue("alwaysOnTop", alwaysOnTop);
 
     int numTasks = taskItems.size();
     settings.beginWriteArray("tasks", numTasks);
