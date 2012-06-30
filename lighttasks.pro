@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     include/qtsingleapplication/qtlockedfile.cpp \
     include/qtsingleapplication/qtlocalpeer.cpp \
     TaskLogger.cpp \
-    TaskStatistics.cpp
+    TaskStatistics.cpp \
+    LightTasksApplication.cpp
 
 HEADERS  += \
     MainWindow.h \
@@ -36,7 +37,8 @@ HEADERS  += \
     include/qtsingleapplication/QtLockedFile \
     include/qtsingleapplication/qtlocalpeer.h \
     TaskLogger.h \
-    TaskStatistics.h
+    TaskStatistics.h \
+    LightTasksApplication.h
 
 FORMS    += \
     MainWindow.ui \

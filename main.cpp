@@ -1,13 +1,11 @@
 #include <QtGui/QApplication>
-#include "include/qtsingleapplication/QtSingleApplication"
+#include "LightTasksApplication.h"
 #include "MainWindow.h"
 
 int main(int argc, char *argv[])
 {
 
-    QtSingleApplication instance("lighttasks", argc, argv);
-    instance.setApplicationName("lighttasks");
-    instance.setOrganizationName("lighttasks");
+    LightTasksApplication instance("lighttasks", argc, argv);
 
     if(instance.isRunning()) {
         return !instance.sendMessage("Restore previous instance");
