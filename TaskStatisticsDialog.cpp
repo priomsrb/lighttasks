@@ -1,6 +1,7 @@
-#include "TaskLogger.h"
 #include "TaskStatisticsDialog.h"
 #include "ui_TaskStatisticsDialog.h"
+#include "TaskLogger.h"
+#include "TaskHistoryDialog.h"
 
 TaskStatisticsDialog::TaskStatisticsDialog(Task *task, QWidget *parent)
     : QDialog(parent)
@@ -15,7 +16,8 @@ TaskStatisticsDialog::TaskStatisticsDialog(Task *task, QWidget *parent)
     , longestDuration(0)
 {
     ui->setupUi(this);
-    ui->viewHistoryButton->hide();
+
+    connect(ui->showHistoryButton, SIGNAL(clicked()), this, SLOT(showHistoryDialog()));
 
     int numSessions = 0;
 
@@ -77,4 +79,11 @@ QString TaskStatisticsDialog::timeToString(int time) {
             .arg(QString::number(seconds), 2, '0');
 
     return timeString;
+}
+
+
+void TaskStatisticsDialog::showHistoryDialog() {
+    TaskHistoryDialog dialog(this);
+    dialog.showTask(task);
+    dialog.exec();
 }

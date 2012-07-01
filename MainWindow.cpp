@@ -1,7 +1,5 @@
 #include <QDebug>
-#include <QFileDialog>
 #include <QMenu>
-#include <QMessageBox>
 #include <QSettings>
 #include <QWindowStateChangeEvent>
 #include "qticonloader.h"
@@ -9,7 +7,7 @@
 #include "ui_MainWindow.h"
 #include "TaskButton.h"
 #include "TaskLogger.h"
-#include "TaskStatistics.h"
+#include "TaskHistoryDialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,12 +19,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     connect(ui->mainOperationButton, SIGNAL(clicked()), this, SLOT(mainOperationButtonClicked()));
-    connect(ui->actionAlways_on_top, SIGNAL(toggled(bool)), this, SLOT(alwaysOnTopToggled(bool)));
-    connect(ui->actionExport_History, SIGNAL(triggered()), this, SLOT(exportHistory()));
+    connect(ui->actionAlwaysOnTop, SIGNAL(toggled(bool)), this, SLOT(alwaysOnTopToggled(bool)));
+    connect(ui->actionShowHistory, SIGNAL(triggered()), this, SLOT(showHistory()));
     connect(&saveTimer, SIGNAL(timeout()), this, SLOT(saveSettings()));
     connect(&tickTimer, SIGNAL(timeout()), this, SLOT(updateSystemTrayToolTip()));
 
+    TaskHistoryDialog::setTaskItems(&taskItems);
     taskLogger = TaskLogger::getInstance();
+
     setupTrayIcon();
     loadSettings();
 
@@ -266,7 +266,7 @@ void MainWindow::loadSettings() {
     resize(windowSize);
 
     alwaysOnTop = settings.value("alwaysOnTop", false).toBool();
-    ui->actionAlways_on_top->setChecked(alwaysOnTop);
+    ui->actionAlwaysOnTop->setChecked(alwaysOnTop);
 
     int numTasks = settings.beginReadArray("tasks");
 
@@ -371,20 +371,9 @@ void MainWindow::doHideRestoreAction() {
 
 }
 
-void MainWindow::exportHistory() {
-    // TODO: remember the last used directory
-
-    QString filename = QFileDialog::getSaveFileName(this, "Export history to file", "", "Comma Separated Values (*.csv)");
-
-    if(filename.isNull())
-        return;
-
-    TaskStatistics statistics(&taskItems);
-
-    if(!statistics.exportToCsv(filename)) {
-        QMessageBox::warning(this, "Error", "Unable to export history");
-    }
-
+void MainWindow::showHistory() {
+    TaskHistoryDialog dialog(this);
+    dialog.exec();
 }
 
 bool MainWindow::event(QEvent *event) {

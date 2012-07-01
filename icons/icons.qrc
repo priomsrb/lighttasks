@@ -9,5 +9,6 @@
         <file>delete.png</file>
         <file>lighttasks_task_active.png</file>
         <file>statistics.png</file>
+        <file>save.png</file>
     </qresource>
 </RCC>

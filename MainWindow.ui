@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>226</width>
-    <height>322</height>
+    <width>220</width>
+    <height>316</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,8 +32,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>208</width>
-         <height>227</height>
+         <width>202</width>
+         <height>221</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="taskListLayout">
@@ -74,7 +74,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>226</width>
+     <width>220</width>
      <height>21</height>
     </rect>
    </property>
@@ -82,7 +82,7 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="actionExport_History"/>
+    <addaction name="actionShowHistory"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -90,7 +90,7 @@
     <property name="title">
      <string>Options</string>
     </property>
-    <addaction name="actionAlways_on_top"/>
+    <addaction name="actionAlwaysOnTop"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOptions"/>
@@ -106,7 +106,7 @@
     <enum>QAction::QuitRole</enum>
    </property>
   </action>
-  <action name="actionAlways_on_top">
+  <action name="actionAlwaysOnTop">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -114,9 +114,9 @@
     <string>Always on top</string>
    </property>
   </action>
-  <action name="actionExport_History">
+  <action name="actionShowHistory">
    <property name="text">
-    <string>Export History</string>
+    <string>Show History</string>
    </property>
   </action>
  </widget>

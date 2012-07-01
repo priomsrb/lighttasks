@@ -32,6 +32,9 @@ private:
 
     QString timeToString(int time);
 
+private slots:
+    void showHistoryDialog();
+
 };
 
 #endif // TASKSTATISTICSDIALOG_H

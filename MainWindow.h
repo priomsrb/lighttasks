@@ -46,7 +46,7 @@ protected slots:
     void updateSystemTrayToolTip();
     void updateIcon();
     void doHideRestoreAction();
-    void exportHistory();
+    void showHistory();
     void restore();
     void quit();
 

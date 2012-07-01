@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>245</width>
+    <width>241</width>
     <height>213</height>
    </rect>
   </property>
@@ -221,9 +221,9 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QPushButton" name="viewHistoryButton">
+      <widget class="QPushButton" name="showHistoryButton">
        <property name="text">
-        <string>View History</string>
+        <string>Show History</string>
        </property>
       </widget>
      </item>
@@ -262,7 +262,7 @@
  </widget>
  <tabstops>
   <tabstop>buttonBox</tabstop>
-  <tabstop>viewHistoryButton</tabstop>
+  <tabstop>showHistoryButton</tabstop>
  </tabstops>
  <resources>
   <include location="icons/icons.qrc"/>
