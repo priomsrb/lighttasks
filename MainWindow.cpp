@@ -7,6 +7,8 @@
 #include "qticonloader.h"
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
+#include "TaskButton.h"
+#include "TaskLogger.h"
 #include "TaskStatistics.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -24,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&saveTimer, SIGNAL(timeout()), this, SLOT(saveSettings()));
     connect(&tickTimer, SIGNAL(timeout()), this, SLOT(updateSystemTrayToolTip()));
 
+    taskLogger = TaskLogger::getInstance();
     setupTrayIcon();
     loadSettings();
 
@@ -38,6 +41,7 @@ MainWindow::~MainWindow() {
     }
 
     saveSettings();
+    taskLogger->destroyInstance();
     delete ui;
 }
 
@@ -133,7 +137,7 @@ TaskItem* MainWindow::createTaskItem(Task *task) {
     connect(task, SIGNAL(toggled(bool)), this, SLOT(updateIcon()));
     systemTrayMenu->insertAction(systemTrayMenu->actions().first(), trayAction);
 
-    taskLogger.addTask(task);
+    taskLogger->addTask(task);
 
     TaskItem *taskItem = new TaskItem();
     taskItem->task = task;
@@ -173,7 +177,7 @@ void MainWindow::removeTaskItem(TaskItem* taskItem) {
     taskItem->trayAction->deleteLater();
 
     taskItem->task->setActive(false); // Make sure all slots fire for task toggling
-    taskLogger.deleteTaskHistory(taskItem->task);
+    taskLogger->deleteTaskHistory(taskItem->task);
     delete taskItem->task;
 
     taskItems.removeOne(taskItem);

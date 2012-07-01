@@ -23,6 +23,7 @@ SOURCES += main.cpp \
     include/qtsingleapplication/qtlocalpeer.cpp \
     TaskLogger.cpp \
     TaskStatistics.cpp \
+    TaskStatisticsDialog.cpp \
     LightTasksApplication.cpp
 
 HEADERS  += \
@@ -38,11 +39,14 @@ HEADERS  += \
     include/qtsingleapplication/qtlocalpeer.h \
     TaskLogger.h \
     TaskStatistics.h \
-    LightTasksApplication.h
+    TaskStatisticsDialog.h \
+    LightTasksApplication.h \
+    Singleton.h
 
 FORMS    += \
     MainWindow.ui \
-    TimeEditWidget.ui
+    TimeEditWidget.ui \
+    TaskStatisticsDialog.ui
 
 RESOURCES += icons/icons.qrc
 

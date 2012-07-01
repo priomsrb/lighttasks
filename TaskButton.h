@@ -44,6 +44,7 @@ private slots:
 
     void doMoveUpAction();
     void doMoveDownAction();
+    void doStatisticsAction();
     void doRenameAction();
     void doSetTimeAction();
     void doResetAction();
@@ -69,6 +70,7 @@ private:
 
     QAction *moveUpAction;
     QAction *moveDownAction;
+    QAction *statisticsAction;
     QAction *renameAction;
     QAction *resetAction;
     QAction *setTimeAction;

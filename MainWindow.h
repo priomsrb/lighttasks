@@ -6,8 +6,14 @@
 #include <QList>
 #include <QSystemTrayIcon>
 #include <QTimer>
-#include "TaskButton.h"
-#include "TaskLogger.h"
+
+namespace Ui {
+class MainWindow;
+}
+
+class Task;
+class TaskButton;
+class TaskLogger;
 
 struct TaskItem {
     Task *task;
@@ -17,9 +23,6 @@ struct TaskItem {
 };
 
 
-namespace Ui {
-class MainWindow;
-}
 
 class MainWindow : public QMainWindow
 {
@@ -57,7 +60,7 @@ private:
 
     Ui::MainWindow *ui;
     QList<TaskItem*> taskItems;
-    TaskLogger taskLogger;
+    TaskLogger *taskLogger;
     QTimer tickTimer;
     QTimer saveTimer;
     State state;

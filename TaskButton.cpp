@@ -8,6 +8,7 @@
 #include <QStyle>
 #include "qticonloader.h"
 #include "TaskButton.h"
+#include "TaskStatisticsDialog.h"
 
 TaskButton::TaskButton(QWidget *parent)
     : QWidget(parent)
@@ -44,6 +45,11 @@ void TaskButton::createActions() {
     moveDownAction->setIcon(QIcon(":icons/down.png"));
     connect(moveDownAction, SIGNAL(triggered()), this, SLOT(doMoveDownAction()));
     addAction(moveDownAction);
+
+    statisticsAction = new QAction("Statistics", this);
+    statisticsAction->setIcon(QIcon(":icons/statistics.png"));
+    connect(statisticsAction, SIGNAL(triggered()), this, SLOT(doStatisticsAction()));
+    addAction(statisticsAction);
 
     renameAction = new QAction("Rename", this);
     renameAction->setIcon(QIcon(":icons/rename.png"));
@@ -150,6 +156,11 @@ void TaskButton::doMoveUpAction() {
 
 void TaskButton::doMoveDownAction() {
     emit movedDown();
+}
+
+void TaskButton::doStatisticsAction() {
+    TaskStatisticsDialog dialog(this->task, this);
+    dialog.exec();
 }
 
 
