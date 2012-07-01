@@ -1,12 +1,14 @@
-#include "TaskLogger.h"
 #include <QDebug>
 #include <QDesktopServices>
 #include <QDir>
 #include <QFile>
 #include <QTemporaryFile>
+#include "MainWindow.h"
+#include "TaskLogger.h"
 
 TaskLogger::TaskLogger()
-    : taskHistoriesLoaded(false)
+    : taskItems(NULL)
+    , taskHistoriesLoaded(false)
 {
     logDirectory = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + "/";
 }
@@ -30,10 +32,34 @@ void TaskLogger::deleteTaskHistory(Task *task) {
     saveTaskHistories();
 }
 
-const QList<TaskSession>* TaskLogger::getTaskSessions() {
+
+// This will return all saved and active sessions
+const QList<TaskSession> TaskLogger::getTaskSessions() {
     loadTaskHistories();
-    return &taskSessions;
+
+    QList<TaskSession> sessions = taskSessions;
+
+    if(taskItems != NULL) {
+        for(int i = 0; i < taskItems->size(); i++) {
+            Task *task = (*taskItems)[i]->task;
+            if(task->isActive()) {
+                TaskSession activeSession;
+                activeSession.taskId = task->getId();
+                activeSession.duration = task->getCurrentDuration();
+                activeSession.time = QDateTime::currentDateTime().toTime_t() - task->getCurrentDuration();
+                sessions.append(activeSession);
+            }
+        }
+    }
+
+    return sessions;
 }
+
+
+void TaskLogger::setTaskItems(const QList<TaskItem*>* taskItems) {
+    this->taskItems = taskItems;
+}
+
 
 void TaskLogger::taskToggled(bool active) {
     Task *task = static_cast<Task*>(sender());

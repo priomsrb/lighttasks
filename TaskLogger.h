@@ -10,6 +10,7 @@
 
 #define LOG_FILENAME "task_log.dat"
 
+struct TaskItem;
 
 struct TaskSession {
     int taskId;
@@ -25,7 +26,8 @@ public:
 
     void addTask(Task *task);
     void deleteTaskHistory(Task *task);
-    const QList<TaskSession>* getTaskSessions();
+    const QList<TaskSession> getTaskSessions();
+    void setTaskItems(const QList<TaskItem *> *taskItems);
 
 protected slots:
     void taskToggled(bool active);
@@ -34,6 +36,8 @@ private:
     QHash<int, int> initialTaskDuration;
     QHash<int, QDateTime> taskActivationTime;
     QList<TaskSession> taskSessions;
+    const QList<TaskItem*> *taskItems;
+
     bool taskHistoriesLoaded;
 
     void loadTaskHistories();

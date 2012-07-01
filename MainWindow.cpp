@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     TaskHistoryDialog::setTaskItems(&taskItems);
     taskLogger = TaskLogger::getInstance();
+    taskLogger->setTaskItems(&taskItems);
 
     setupTrayIcon();
     loadSettings();

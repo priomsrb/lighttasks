@@ -5,7 +5,7 @@
 #include "ui_TaskHistoryDialog.h"
 #include "MainWindow.h"
 
-const QList<TaskItem*> *TaskHistoryDialog::taskItems = 0;
+const QList<TaskItem*> *TaskHistoryDialog::taskItems = NULL;
 
 TaskHistoryDialog::TaskHistoryDialog(QWidget *parent) :
     QDialog(parent),
@@ -17,9 +17,11 @@ TaskHistoryDialog::TaskHistoryDialog(QWidget *parent) :
     connect(ui->taskComboBox, SIGNAL(activated(int)), this, SLOT(taskChanged(int)));
     connect(ui->saveToFileButton, SIGNAL(clicked()), this, SLOT(showSaveToFileDialog()));
 
-    for(int i=0; i < taskItems->size(); i++) {
-        Task *task = (*taskItems)[i]->task;
-        ui->taskComboBox->addItem(task->getName());
+    if(taskItems != NULL) {
+        for(int i=0; i < taskItems->size(); i++) {
+            Task *task = (*taskItems)[i]->task;
+            ui->taskComboBox->addItem(task->getName());
+        }
     }
 
     showTask(NULL);
@@ -42,11 +44,11 @@ void TaskHistoryDialog::showTask(Task *task) {
     }
 
 
-    const QList<TaskSession> *taskSessions = TaskLogger::getInstance()->getTaskSessions();
+    const QList<TaskSession> taskSessions = TaskLogger::getInstance()->getTaskSessions();
 
     relevantSessions.clear();
-    for(int i = 0; i < taskSessions->size(); i++) {
-        TaskSession session = (*taskSessions)[i];
+    for(int i = 0; i < taskSessions.size(); i++) {
+        TaskSession session = taskSessions[i];
         if(task == NULL || session.taskId == task->getId()) {
             relevantSessions.append(session);
         }
@@ -91,10 +93,12 @@ QString TaskHistoryDialog::timeToString(int time) {
 
 QString TaskHistoryDialog::getTaskName(int taskId) {
 
-    for(int i=0; i < taskItems->size(); i++) {
-        Task *task = (*taskItems)[i]->task;
-        if(task->getId() == taskId) {
-            return task->getName();
+    if(taskItems != NULL) {
+        for(int i=0; i < taskItems->size(); i++) {
+            Task *task = (*taskItems)[i]->task;
+            if(task->getId() == taskId) {
+                return task->getName();
+            }
         }
     }
 
@@ -105,11 +109,13 @@ void TaskHistoryDialog::taskChanged(int taskIndex) {
     if(taskIndex != 0) {
         QString taskName = ui->taskComboBox->itemText(taskIndex);
 
-        for(int i=0; i < taskItems->size(); i++) {
-            Task *task = (*taskItems)[i]->task;
-            if(task->getName() == taskName) {
-                showTask(task);
-                return;
+        if(taskItems != NULL) {
+            for(int i=0; i < taskItems->size(); i++) {
+                Task *task = (*taskItems)[i]->task;
+                if(task->getName() == taskName) {
+                    showTask(task);
+                    return;
+                }
             }
         }
     }

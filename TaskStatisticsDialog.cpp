@@ -21,10 +21,10 @@ TaskStatisticsDialog::TaskStatisticsDialog(Task *task, QWidget *parent)
 
     int numSessions = 0;
 
-    const QList<TaskSession> *taskSessions = TaskLogger::getInstance()->getTaskSessions();
+    const QList<TaskSession> taskSessions = TaskLogger::getInstance()->getTaskSessions();
     TaskSession taskSession;
 
-    foreach(taskSession, *taskSessions) {
+    foreach(taskSession, taskSessions) {
         if(taskSession.taskId == task->getId()) {
             QDate sessionDate = QDateTime::fromTime_t(taskSession.time).date();
 
