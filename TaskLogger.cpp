@@ -3,7 +3,7 @@
 #include <QDir>
 #include <QFile>
 #include <QTemporaryFile>
-#include "MainWindow.h"
+#include "TaskItem.h"
 #include "TaskLogger.h"
 
 TaskLogger::TaskLogger()

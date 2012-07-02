@@ -1,4 +1,5 @@
 #include "Task.h"
+#include "misc.h"
 
 Task::Task(QObject *parent)
     : QObject(parent)
@@ -80,14 +81,7 @@ bool Task::isActive() const {
 }
 
 QString Task::toText() const {
-    int time = getTotalTime();
-    int seconds = time % 60;
-    int minutes = (time / 60) % 60;
-    int hours = time / 3600;
-    QString timeString = QString("%1:%2:%3")
-            .arg(QString::number(hours), 2, '0')
-            .arg(QString::number(minutes), 2, '0')
-            .arg(QString::number(seconds), 2, '0');
+    QString timeString = timeToString(getTotalTime());
 
     return QString("%1 (%2)")
             .arg(getName())

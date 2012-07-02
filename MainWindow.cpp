@@ -304,8 +304,6 @@ void MainWindow::saveSettings() {
         settings.setValue("time", task->getTotalTime());
     }
     settings.endArray();
-
-    settings.sync();
 }
 
 

@@ -6,22 +6,13 @@
 #include <QList>
 #include <QSystemTrayIcon>
 #include <QTimer>
+#include "TaskItem.h"
 
 namespace Ui {
 class MainWindow;
 }
 
-class Task;
-class TaskButton;
 class TaskLogger;
-
-struct TaskItem {
-    Task *task;
-    TaskButton *taskButton;
-    QAction *trayAction;
-    bool valid;
-};
-
 
 
 class MainWindow : public QMainWindow

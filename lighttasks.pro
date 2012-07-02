@@ -25,7 +25,8 @@ SOURCES += main.cpp \
     TaskStatisticsDialog.cpp \
     LightTasksApplication.cpp \
     TaskHistoryDialog.cpp \
-    QTableWidgetWithCopy.cpp
+    QTableWidgetWithCopy.cpp \
+    misc.cpp
 
 HEADERS  += \
     MainWindow.h \
@@ -43,7 +44,9 @@ HEADERS  += \
     LightTasksApplication.h \
     Singleton.h \
     TaskHistoryDialog.h \
-    QTableWidgetWithCopy.h
+    QTableWidgetWithCopy.h \
+    TaskItem.h \
+    misc.h
 
 FORMS    += \
     MainWindow.ui \

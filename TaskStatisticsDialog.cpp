@@ -2,6 +2,7 @@
 #include "ui_TaskStatisticsDialog.h"
 #include "TaskLogger.h"
 #include "TaskHistoryDialog.h"
+#include "misc.h"
 
 TaskStatisticsDialog::TaskStatisticsDialog(Task *task, QWidget *parent)
     : QDialog(parent)
@@ -68,19 +69,6 @@ TaskStatisticsDialog::~TaskStatisticsDialog()
 {
     delete ui;
 }
-
-QString TaskStatisticsDialog::timeToString(int time) {
-    int seconds = time % 60;
-    int minutes = (time / 60) % 60;
-    int hours = time / 3600;
-    QString timeString = QString("%1:%2:%3")
-            .arg(QString::number(hours), 2, '0')
-            .arg(QString::number(minutes), 2, '0')
-            .arg(QString::number(seconds), 2, '0');
-
-    return timeString;
-}
-
 
 void TaskStatisticsDialog::showHistoryDialog() {
     TaskHistoryDialog dialog(this);

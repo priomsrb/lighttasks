@@ -31,9 +31,7 @@ private:
     static const QList<TaskItem*> *taskItems;
     QList<TaskSession> relevantSessions;
 
-
     void setupHistoryTable();
-    QString timeToString(int time);
     QString getTaskName(int taskId);
 
 private slots:

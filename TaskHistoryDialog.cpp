@@ -7,7 +7,8 @@
 #include <QHeaderView>
 #include "TaskHistoryDialog.h"
 #include "ui_TaskHistoryDialog.h"
-#include "MainWindow.h"
+#include "TaskItem.h"
+#include "misc.h"
 
 const QList<TaskItem*> *TaskHistoryDialog::taskItems = NULL;
 
@@ -112,18 +113,6 @@ void TaskHistoryDialog::setTaskItems(const QList<TaskItem*>* taskItems_) {
     taskItems = taskItems_;
 }
 
-
-QString TaskHistoryDialog::timeToString(int time) {
-    int seconds = time % 60;
-    int minutes = (time / 60) % 60;
-    int hours = time / 3600;
-    QString timeString = QString("%1:%2:%3")
-            .arg(QString::number(hours), 2, '0')
-            .arg(QString::number(minutes), 2, '0')
-            .arg(QString::number(seconds), 2, '0');
-
-    return timeString;
-}
 
 QString TaskHistoryDialog::getTaskName(int taskId) {
 

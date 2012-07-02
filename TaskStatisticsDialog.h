@@ -30,8 +30,6 @@ private:
     int averageDuration;
     int longestDuration;
 
-    QString timeToString(int time);
-
 private slots:
     void showHistoryDialog();
 
