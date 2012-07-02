@@ -262,7 +262,7 @@ void MainWindow::moveTaskItem(int fromIndex, int toIndex) {
 void MainWindow::loadSettings() {
     QSettings settings;
 
-    QSize windowSize = settings.value("windowSize", QSize(234, 330)).toSize();
+    QSize windowSize = settings.value("windowSize", QSize(230, 340)).toSize();
     resize(windowSize);
 
     alwaysOnTop = settings.value("alwaysOnTop", false).toBool();

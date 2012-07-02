@@ -45,7 +45,7 @@ void TaskHistoryDialog::setupHistoryTable() {
     QStringList columnNames;
     columnNames << "Date" << "Time" << "Task" << "Duration";
     historyTable.setHorizontalHeaderLabels(columnNames);
-    historyTable.setColumnWidth(2, 180);
+    historyTable.setColumnWidth(2, 160);
     historyTable.horizontalHeader()->setStretchLastSection(true);
 
     historyTable.verticalHeader()->setVisible(false);
