@@ -1,18 +1,24 @@
 #include <QDateTime>
+#include <QDebug>
+#include <QScrollBar>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QHeaderView>
 #include "TaskHistoryDialog.h"
 #include "ui_TaskHistoryDialog.h"
 #include "MainWindow.h"
 
 const QList<TaskItem*> *TaskHistoryDialog::taskItems = NULL;
 
-TaskHistoryDialog::TaskHistoryDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::TaskHistoryDialog)
+TaskHistoryDialog::TaskHistoryDialog(QWidget *parent)
+    : QDialog(parent)
+    , ui(new Ui::TaskHistoryDialog)
+    , historyTable(this)
+
 {
     ui->setupUi(this);
-    ui->historyTable->setColumnWidth(2, 180);
+    setupHistoryTable();
+
 
     connect(ui->taskComboBox, SIGNAL(activated(int)), this, SLOT(taskChanged(int)));
     connect(ui->saveToFileButton, SIGNAL(clicked()), this, SLOT(showSaveToFileDialog()));
@@ -32,6 +38,29 @@ TaskHistoryDialog::~TaskHistoryDialog()
     delete ui;
 }
 
+void TaskHistoryDialog::setupHistoryTable() {
+    historyTable.setColumnCount(4);
+    QStringList columnNames;
+    columnNames << "Date" << "Time" << "Task" << "Duration";
+    historyTable.setHorizontalHeaderLabels(columnNames);
+    historyTable.setColumnWidth(2, 180);
+    historyTable.horizontalHeader()->setStretchLastSection(true);
+
+    historyTable.verticalHeader()->setVisible(false);
+    historyTable.verticalHeader()->setDefaultSectionSize(24);
+
+    historyTable.setTabKeyNavigation(false);
+
+    setTabOrder(ui->taskComboBox, &historyTable);
+    setTabOrder(&historyTable, ui->saveToFileButton);
+    setTabOrder(ui->saveToFileButton, ui->closeButtonBox);
+    setTabOrder(ui->closeButtonBox, ui->taskComboBox);
+
+    ui->historyTableLayout->addWidget(&historyTable);
+
+    ui->closeButtonBox->setFocus();
+
+}
 
 // If task is NULL then it will show all tasks
 void TaskHistoryDialog::showTask(Task *task) {
@@ -55,8 +84,8 @@ void TaskHistoryDialog::showTask(Task *task) {
     }
 
     // We pre-size the table to make the rendering faster
-    ui->historyTable->setRowCount(relevantSessions.size());
-    ui->historyTable->clearContents();
+    historyTable.setRowCount(relevantSessions.size());
+    historyTable.clearContents();
 
     for(int i = 0; i < relevantSessions.size(); i++) {
         TaskSession session = relevantSessions[i];
@@ -67,11 +96,15 @@ void TaskHistoryDialog::showTask(Task *task) {
         QString name = getTaskName(session.taskId);
         QString duration = timeToString(session.duration);
 
-        ui->historyTable->setItem(i, 0, newReadOnlyItem(date));
-        ui->historyTable->setItem(i, 1, newReadOnlyItem(time));
-        ui->historyTable->setItem(i, 2, newReadOnlyItem(name));
-        ui->historyTable->setItem(i, 3, newReadOnlyItem(duration));
+        historyTable.setItem(i, 0, newReadOnlyItem(date));
+        historyTable.setItem(i, 1, newReadOnlyItem(time));
+        historyTable.setItem(i, 2, newReadOnlyItem(name));
+        historyTable.setItem(i, 3, newReadOnlyItem(duration));
     }
+
+    // Move the view to the bottom of the table
+    historyTable.setCurrentCell(historyTable.rowCount() - 1, 0, QItemSelectionModel::Deselect);
+
 }
 
 void TaskHistoryDialog::setTaskItems(const QList<TaskItem*>* taskItems_) {

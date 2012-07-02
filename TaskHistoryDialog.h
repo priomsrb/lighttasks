@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QList>
 #include "TaskLogger.h"
+#include "QTableWidgetWithCopy.h"
 
 namespace Ui {
 class TaskHistoryDialog;
@@ -26,10 +27,12 @@ public:
 
 private:
     Ui::TaskHistoryDialog *ui;
+    QTableWidgetWithCopy historyTable;
     static const QList<TaskItem*> *taskItems;
     QList<TaskSession> relevantSessions;
 
 
+    void setupHistoryTable();
     QString timeToString(int time);
     QString getTaskName(int taskId);
 

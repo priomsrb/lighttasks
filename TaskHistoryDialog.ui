@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>503</width>
-    <height>475</height>
+    <width>487</width>
+    <height>459</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -41,40 +41,11 @@
     </layout>
    </item>
    <item>
-    <widget class="QTableWidget" name="historyTable">
-     <property name="selectionMode">
-      <enum>QAbstractItemView::ContiguousSelection</enum>
+    <layout class="QVBoxLayout" name="historyTableLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
      </property>
-     <attribute name="horizontalHeaderStretchLastSection">
-      <bool>true</bool>
-     </attribute>
-     <attribute name="verticalHeaderVisible">
-      <bool>false</bool>
-     </attribute>
-     <attribute name="verticalHeaderDefaultSectionSize">
-      <number>24</number>
-     </attribute>
-     <column>
-      <property name="text">
-       <string>Date</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Time</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Task</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Duration</string>
-      </property>
-     </column>
-    </widget>
+    </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -103,7 +74,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="closeButtonBox">
        <property name="focusPolicy">
         <enum>Qt::StrongFocus</enum>
        </property>
@@ -120,9 +91,8 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>buttonBox</tabstop>
+  <tabstop>closeButtonBox</tabstop>
   <tabstop>taskComboBox</tabstop>
-  <tabstop>historyTable</tabstop>
   <tabstop>saveToFileButton</tabstop>
  </tabstops>
  <resources>
@@ -130,7 +100,7 @@
  </resources>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>closeButtonBox</sender>
    <signal>accepted()</signal>
    <receiver>TaskHistoryDialog</receiver>
    <slot>accept()</slot>
@@ -146,7 +116,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>closeButtonBox</sender>
    <signal>rejected()</signal>
    <receiver>TaskHistoryDialog</receiver>
    <slot>reject()</slot>
