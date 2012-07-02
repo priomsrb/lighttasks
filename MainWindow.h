@@ -83,6 +83,7 @@ private:
     void moveTaskItem(int fromIndex, int toIndex);
     bool event(QEvent *event);
     int generateNewTaskId();
+    QString getNewTaskName();
 
 };
 

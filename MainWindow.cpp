@@ -102,7 +102,7 @@ void MainWindow::alwaysOnTopToggled(bool alwaysOnTop) {
 
 void MainWindow::addNewTask() {
     Task* task = new Task();
-    task->setName("New Task");
+    task->setName(getNewTaskName());
     TaskItem *taskItem = createTaskItem(task);
     taskItem->valid = false;
     taskItem->taskButton->startRenaming();
@@ -469,3 +469,27 @@ int MainWindow::generateNewTaskId() {
     return -1;
 }
 
+// Returns a unique task name. Starting with "New Task" then "New Task 2" then
+// "New Task 3" etc.
+QString MainWindow::getNewTaskName() {
+    QString taskName = "New Task";
+    int number = 1;
+
+    while(1) {
+        bool nameExists = false;
+
+        for(int i = 0; i < taskItems.size(); i++) {
+            if(taskItems[i]->task->getName() == taskName) {
+                number++;
+                taskName = "New Task " + QString::number(number);
+                nameExists = true;
+                break;
+            }
+        }
+
+        if(!nameExists) {
+            return taskName;
+        }
+    }
+
+}
