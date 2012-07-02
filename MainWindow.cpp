@@ -1,4 +1,3 @@
-#include <QDebug>
 #include <QMenu>
 #include <QSettings>
 #include <QWindowStateChangeEvent>
@@ -288,11 +287,11 @@ void MainWindow::loadSettings() {
 
 void MainWindow::saveSettings() {
     QSettings settings;
-    settings.clear();
 
     settings.setValue("windowSize", size());
     settings.setValue("alwaysOnTop", alwaysOnTop);
 
+    settings.remove("tasks");
     int numTasks = taskItems.size();
     settings.beginWriteArray("tasks", numTasks);
 

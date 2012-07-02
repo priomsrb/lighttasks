@@ -1,6 +1,7 @@
 #include <QDateTime>
 #include <QDebug>
 #include <QScrollBar>
+#include <QSettings>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QHeaderView>
@@ -161,11 +162,20 @@ void TaskHistoryDialog::taskChanged(int taskIndex) {
 
 void TaskHistoryDialog::showSaveToFileDialog() {
     // TODO: remember the last used directory
+    QSettings settings;
+    QString saveLocation = settings.value("lastSaveLocation", "").toString();
 
-    QString filename = QFileDialog::getSaveFileName(this, "Save history to file", "", "Comma Separated Values (*.csv)");
+    QString filename = QFileDialog::getSaveFileName(this,
+                                                    "Save history to file",
+                                                    saveLocation,
+                                                    "Comma Separated Values (*.csv)");
 
     if(filename.isNull())
         return;
+
+    QFileInfo fileInfo(filename);
+    saveLocation = fileInfo.absoluteDir().absolutePath();
+    settings.setValue("lastSaveLocation", saveLocation);
 
     if(!saveToCsv(filename)) {
         QMessageBox::warning(this, "Error", "Unable to save history to file");
