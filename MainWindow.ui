@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>220</width>
-    <height>316</height>
+    <width>230</width>
+    <height>350</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,8 +32,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>202</width>
-         <height>221</height>
+         <width>212</width>
+         <height>255</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="taskListLayout">
@@ -74,7 +74,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>220</width>
+     <width>230</width>
      <height>21</height>
     </rect>
    </property>
@@ -88,7 +88,7 @@
    </widget>
    <widget class="QMenu" name="menuOptions">
     <property name="title">
-     <string>Options</string>
+     <string>&amp;Options</string>
     </property>
     <addaction name="actionAlwaysOnTop"/>
    </widget>
@@ -97,7 +97,7 @@
   </widget>
   <action name="actionQuit">
    <property name="text">
-    <string>Quit</string>
+    <string>&amp;Quit</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
@@ -111,12 +111,12 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Always on top</string>
+    <string>&amp;Always on top</string>
    </property>
   </action>
   <action name="actionShowHistory">
    <property name="text">
-    <string>Show History</string>
+    <string>&amp;Show History</string>
    </property>
   </action>
  </widget>
