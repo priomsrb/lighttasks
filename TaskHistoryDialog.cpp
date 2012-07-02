@@ -72,7 +72,13 @@ void TaskHistoryDialog::showTask(Task *task) {
         if(taskIndex != -1) {
             ui->taskComboBox->setCurrentIndex(taskIndex);
         }
+
+        setWindowTitle("Task History - " + task->getName());
+    } else {
+        setWindowTitle("Task History - All Tasks");
     }
+
+
 
 
     const QList<TaskSession> taskSessions = TaskLogger::getInstance()->getTaskSessions();
