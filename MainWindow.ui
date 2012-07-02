@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>230</width>
-    <height>350</height>
+    <width>228</width>
+    <height>348</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,8 +32,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>212</width>
-         <height>255</height>
+         <width>210</width>
+         <height>253</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="taskListLayout">
@@ -74,7 +74,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>230</width>
+     <width>228</width>
      <height>21</height>
     </rect>
    </property>
@@ -92,8 +92,15 @@
     </property>
     <addaction name="actionAlwaysOnTop"/>
    </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionHelp"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOptions"/>
+   <addaction name="menu_Help"/>
   </widget>
   <action name="actionQuit">
    <property name="text">
@@ -117,6 +124,14 @@
   <action name="actionShowHistory">
    <property name="text">
     <string>&amp;Show History</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>&amp;Help...</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
    </property>
   </action>
  </widget>

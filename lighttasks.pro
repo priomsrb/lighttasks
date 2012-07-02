@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     LightTasksApplication.cpp \
     TaskHistoryDialog.cpp \
     QTableWidgetWithCopy.cpp \
-    misc.cpp
+    misc.cpp \
+    HelpDialog.cpp
 
 HEADERS  += \
     MainWindow.h \
@@ -46,13 +47,15 @@ HEADERS  += \
     TaskHistoryDialog.h \
     QTableWidgetWithCopy.h \
     TaskItem.h \
-    misc.h
+    misc.h \
+    HelpDialog.h
 
 FORMS    += \
     MainWindow.ui \
     TimeEditWidget.ui \
     TaskStatisticsDialog.ui \
-    TaskHistoryDialog.ui
+    TaskHistoryDialog.ui \
+    HelpDialog.ui
 
 RESOURCES += icons/icons.qrc
 

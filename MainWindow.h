@@ -38,6 +38,7 @@ protected slots:
     void updateIcon();
     void doHideRestoreAction();
     void showHistory();
+    void showHelp();
     void restore();
     void quit();
 

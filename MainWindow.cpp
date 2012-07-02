@@ -7,6 +7,7 @@
 #include "TaskButton.h"
 #include "TaskLogger.h"
 #include "TaskHistoryDialog.h"
+#include "HelpDialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->mainOperationButton, SIGNAL(clicked()), this, SLOT(mainOperationButtonClicked()));
     connect(ui->actionAlwaysOnTop, SIGNAL(toggled(bool)), this, SLOT(alwaysOnTopToggled(bool)));
     connect(ui->actionShowHistory, SIGNAL(triggered()), this, SLOT(showHistory()));
+    connect(ui->actionHelp, SIGNAL(triggered()), this, SLOT(showHelp()));
     connect(&saveTimer, SIGNAL(timeout()), this, SLOT(saveSettings()));
     connect(&tickTimer, SIGNAL(timeout()), this, SLOT(updateSystemTrayToolTip()));
 
@@ -371,6 +373,11 @@ void MainWindow::doHideRestoreAction() {
 
 void MainWindow::showHistory() {
     TaskHistoryDialog dialog(this);
+    dialog.exec();
+}
+
+void MainWindow::showHelp() {
+    HelpDialog dialog(this);
     dialog.exec();
 }
 
