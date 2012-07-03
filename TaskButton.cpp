@@ -87,6 +87,10 @@ void TaskButton::createWidgets() {
 
     lineEdit = new QLineEdit(this);
     lineEdit->setMinimumHeight(50);
+    // We set the font size manually to match our button size
+    QFont lineEditFont = lineEdit->font();
+    lineEditFont.setPixelSize(12);
+    lineEdit->setFont(lineEditFont);
     lineEdit->setAlignment(Qt::AlignCenter);
     lineEdit->hide();
     lineEdit->installEventFilter(this);
@@ -233,6 +237,7 @@ void TaskButton::updateButton() {
                     "color:#000000;"
                     "border: 1px solid #558855;"
                     "border-radius: 5px;"
+                    "font-size: 12px;"
                     "}"
                     "QPushButton:hover {"
                     "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #CCFFCC, stop: 1 #88EE88);"
@@ -248,6 +253,7 @@ void TaskButton::updateButton() {
                     "color:#000000;"
                     "border: 1px solid #887777;"
                     "border-radius: 5px;"
+                    "font-size: 12px;"
                     "}"
                     "QPushButton:hover {"
                     "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FFEEEE, stop: 1 #FFAAAA);"

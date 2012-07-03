@@ -64,6 +64,9 @@ TaskStatisticsDialog::TaskStatisticsDialog(Task *task, QWidget *parent)
     ui->timeThisYear->setText(timeToString(timeThisYear));
     ui->averageDuration->setText(timeToString(averageDuration));
     ui->longestDuration->setText(timeToString(longestDuration));
+
+    // Resize to minimum size
+    resize(0, 0);
 }
 
 TaskStatisticsDialog::~TaskStatisticsDialog()
