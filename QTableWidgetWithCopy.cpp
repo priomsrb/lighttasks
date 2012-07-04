@@ -2,6 +2,7 @@
 #include <QClipboard>
 #include <QKeyEvent>
 #include "QTableWidgetWithCopy.h"
+#include <algorithm>
 
 void QTableWidgetWithCopy::copy() {
     QItemSelectionModel * selection = selectionModel();
