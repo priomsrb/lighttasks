@@ -17,7 +17,8 @@ TaskStatisticsDialog::TaskStatisticsDialog(Task *task, QWidget *parent)
     , longestDuration(0)
 {
     ui->setupUi(this);
-    setWindowTitle("Task Statistics - " + task->getName());
+
+    setWindowTitle(task->getName() + " - Statistics");
 
     connect(ui->showHistoryButton, SIGNAL(clicked()), this, SLOT(showHistoryDialog()));
 

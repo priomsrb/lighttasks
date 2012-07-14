@@ -73,9 +73,9 @@ void TaskHistoryDialog::showTask(Task *task) {
             ui->taskComboBox->setCurrentIndex(taskIndex);
         }
 
-        setWindowTitle("Task History - " + task->getName());
+        setWindowTitle(task->getName() + " - History");
     } else {
-        setWindowTitle("Task History - All Tasks");
+        setWindowTitle("All Tasks - History");
     }
 
 
