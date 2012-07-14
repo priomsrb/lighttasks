@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>228</width>
-    <height>348</height>
+    <width>226</width>
+    <height>346</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,24 +32,14 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>206</width>
-         <height>250</height>
+         <width>208</width>
+         <height>251</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="taskListLayout">
-        <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>269</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMaximumSize</enum>
+        </property>
        </layout>
       </widget>
      </widget>
@@ -79,8 +69,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>228</width>
-     <height>20</height>
+     <width>226</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

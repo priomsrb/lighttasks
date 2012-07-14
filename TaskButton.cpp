@@ -77,29 +77,32 @@ void TaskButton::createActions() {
 void TaskButton::createWidgets() {
     changeState(NORMAL);
 
+    setMinimumHeight(32);
+    setMaximumHeight(50);
+
     layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
     layout->setMargin(0);
 
     button = new QPushButton(this);
-    button->setMinimumHeight(50);
+    button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     button->installEventFilter(this);
     layout->addWidget(button);
 
     lineEdit = new QLineEdit(this);
-    lineEdit->setMinimumHeight(50);
+    lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     // We set the font size manually to match our button size
     QFont lineEditFont = lineEdit->font();
     lineEditFont.setPixelSize(12);
     lineEdit->setFont(lineEditFont);
     lineEdit->setAlignment(Qt::AlignCenter);
-    lineEdit->hide();
     lineEdit->installEventFilter(this);
+    lineEdit->hide();
     layout->addWidget(lineEdit);
 
     timeEdit = new TimeEditWidget(this);
-    timeEdit->hide();
-    timeEdit->setMinimumHeight(50);
+    timeEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     timeEdit->installEventFilter(this);
+    timeEdit->hide();
     layout->addWidget(timeEdit);
 
     connect(lineEdit, SIGNAL(returnPressed()), this, SLOT(finishRenaming()));
@@ -311,3 +314,4 @@ bool TaskButton::eventFilter(QObject *obj, QEvent *event) {
 void TaskButton::changeState(State newState) {
     state = newState;
 }
+
