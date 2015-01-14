@@ -39,7 +39,7 @@
 
 
 #include "qticonloader.h"
-#include <QtGui/QPixmapCache>
+#include <QPixmapCache>
 
 #include <QtCore/QList>
 #include <QtCore/QHash>

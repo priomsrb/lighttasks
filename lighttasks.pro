@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network
+QT       += core gui network widgets
 
 TARGET = lighttasks
 TEMPLATE = app
@@ -16,18 +16,19 @@ SOURCES += main.cpp \
     TaskButton.cpp \
     TimeEditWidget.cpp \
     qticonloader.cc \
-    include/qtsingleapplication/qtsingleapplication.cpp \
-    include/qtsingleapplication/qtlockedfile_win.cpp \
-    include/qtsingleapplication/qtlockedfile_unix.cpp \
-    include/qtsingleapplication/qtlockedfile.cpp \
-    include/qtsingleapplication/qtlocalpeer.cpp \
     TaskLogger.cpp \
     TaskStatisticsDialog.cpp \
     LightTasksApplication.cpp \
     TaskHistoryDialog.cpp \
     QTableWidgetWithCopy.cpp \
     misc.cpp \
-    HelpDialog.cpp
+    HelpDialog.cpp \
+    include/qtsingleapplication/qtlocalpeer.cpp \
+    include/qtsingleapplication/qtlockedfile.cpp \
+    include/qtsingleapplication/qtlockedfile_unix.cpp \
+    include/qtsingleapplication/qtlockedfile_win.cpp \
+    include/qtsingleapplication/qtsingleapplication.cpp \
+    include/qtsingleapplication/qtsinglecoreapplication.cpp
 
 HEADERS  += \
     MainWindow.h \
@@ -35,11 +36,6 @@ HEADERS  += \
     TaskButton.h \
     TimeEditWidget.h \
     qticonloader.h \
-    include/qtsingleapplication/qtsingleapplication.h \
-    include/qtsingleapplication/QtSingleApplication \
-    include/qtsingleapplication/qtlockedfile.h \
-    include/qtsingleapplication/QtLockedFile \
-    include/qtsingleapplication/qtlocalpeer.h \
     TaskLogger.h \
     TaskStatisticsDialog.h \
     LightTasksApplication.h \
@@ -48,7 +44,11 @@ HEADERS  += \
     QTableWidgetWithCopy.h \
     TaskItem.h \
     misc.h \
-    HelpDialog.h
+    HelpDialog.h \
+    include/qtsingleapplication/qtlocalpeer.h \
+    include/qtsingleapplication/qtlockedfile.h \
+    include/qtsingleapplication/qtsingleapplication.h \
+    include/qtsingleapplication/qtsinglecoreapplication.h
 
 FORMS    += \
     MainWindow.ui \

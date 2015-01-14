@@ -10,7 +10,9 @@ TaskLogger::TaskLogger()
     : taskItems(NULL)
     , taskHistoriesLoaded(false)
 {
-    logDirectory = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + "/";
+//    logDirectory = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + "/";
+    // Check if this is the same directory as used before
+    logDirectory = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/";
 }
 
 
